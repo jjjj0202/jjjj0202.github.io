@@ -1,9 +1,9 @@
 ---
-title: .[Dreamhack] Carve Party.
-featured: /assets/images/pic02.jpg
 layout: post
+title:  "[Dreamhack] Carve Party"
+date:   2025-03-14 08:42:22 +0900
+categories: jekyll update
 ---
-
 <p>문제는 드림핵 Epilogue에 있는 CTF입니다.</p>
 <p>ㅎㅎ</p>
 <img src="/assets/images/p1.PNG">
