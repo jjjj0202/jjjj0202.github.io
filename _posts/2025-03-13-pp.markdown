@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[Dreamhack] Carve Party"
-date:   2025-03-14 08:42:22 +0900
+date:   2025-03-13 08:42:22 +0900
 categories: jekyll update
 ---
 <p>문제는 드림핵 Epilogue에 있는 CTF입니다.</p>
