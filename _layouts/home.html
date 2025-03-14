@@ -10,7 +10,7 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading" style="text-align: center;">{{ page.list_title | default: "포스터" }}</h2>
+    <h2 class="post-list-heading" style="text-align: center;">{{ page.list_title | default: "Dreamhack" }}</h2>
     <ul class="post-list" style="text-align: center;">
       {%- for post in site.posts offset: 0 limit: 4 %}
       <li>
