@@ -5,17 +5,19 @@ date:   2025-03-13 08:42:22 +0900
 featured: /assets/images/블로그1.jpg
 categories: jekyll update
 ---
-<p>문제는 드림핵 Epilogue에 있는 CTF입니다.</p>
-<p>ㅎㅎ</p>
+<p>안녕하세요! 이번 문제는 드림핵 Epilogue에 있는 CTF입니다.</p>
 <img src="/assets/images/p1.PNG" style="max-width: 100%; height: auto;"> 
 <p>가운데 호박그림을 10000번 클릭하면 Flag를 얻을수 있는데요.</p>
 <img src="/assets/images/p2.PNG" style="max-width: 100%; height: auto;"> 
-<p>개발자 도구를 열어보면 스크립트문이 보입니다.</p>
+<p>개발자 도구를 열어보면 스크립트 부분을 확인합니다.</p>
 <img src="/assets/images/p3.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 counter 값을 10000으로 지정한 뒤, 호박을 클릭하면 될거라 생각했는데 실패였습니다. 이상한 문자가 출력되버렸죠.</p>
 <img src="/assets/images/p4.PNG" style="max-width: 100%; height: auto;"> 
-<p>저는 다시 해당 스크립트문을 유심히보며 위와 같은 구문을 발견했습니다. pumpkin 배열에 counter가 100일 때마다 함수가 동작되는데요.</p>
+<p>저는 다시 해당 스크립트 부분을 유심히보다가 위와 같은 구문을 발견했습니다. pumpkin 배열에 counter가 100일 때마다 함수가 동작되는데요.</p>
 <img src="/assets/images/p5.PNG" style="max-width: 100%; height: auto;"> 
-저는 파이썬으로 함수를 가져와서 작동시켜보았습니다.
+<p>저는 파이썬으로 함수를 가져와서 작동시켜보았습니다.</p>
+<p>1. 클릭을 1만번 해야되니까, for문을 10000으로 설정합니다.</p>
+<p>2. 가져온 함수를 for문에 입력해줍니다.</p>
+<p>3. for문 연산이 완료된 pumpkin 변수를 char형태로 변환 시켜 Flag변수에 저장하고 출력합니다.</p>
 <img src="/assets/images/p6-1.PNG" style="max-width: 100%; height: auto;"> 
-CMD창에서 python을 실행한 다음 정상적으로 플래그가 나온것을 확인할수 있습니다.
+<p>CMD창에서 python을 실행한 다음 정상적으로 플래그가 나온것을 확인할수 있습니다.</p>
