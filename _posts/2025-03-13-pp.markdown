@@ -13,11 +13,11 @@ categories: jekyll update
 <img src="/assets/images/p3-1.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 counter 값을 10000으로 지정한 뒤, 호박을 클릭하면 될거라 생각했는데 실패였습니다. 이상한 문자가 출력되버렸죠.</p>
 <img src="/assets/images/p4.PNG" style="max-width: 100%; height: auto;"> 
-<p>저는 다시 해당 스크립트 부분을 유심히보다가 위와 같은 구문을 발견했습니다. pumpkin 배열에 counter가 100일 때마다 함수가 동작되는데요.</p>
+<p>저는 다시 해당 스크립트 부분을 유심히보다가 위와 같은 구문을 발견했습니다. 클릭 할때마나 pumpkin 배열에 for문이 작동된다는 것을 알았습니다.</p>
 <img src="/assets/images/p5-1.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 파이썬으로 함수를 가져와서 작동시켜보았습니다.</p>
 <p>1. 클릭을 1만번 해야되니까, for문을 10000으로 설정합니다.</p>
 <p>2. 가져온 함수를 for문에 입력해줍니다.</p>
 <p>3. for문 연산이 완료된 pumpkin 변수를 char형태로 변환 시켜 Flag변수에 저장하고 출력합니다.</p>
-<img src="/assets/images/p6.jpg" style="max-width: 100%; height: auto;"> 
+<img src="/assets/images/p7.png" style="max-width: 100%; height: auto;"> 
 <p>CMD창에서 python을 실행한 다음 정상적으로 플래그가 나온것을 확인할수 있습니다.</p>
