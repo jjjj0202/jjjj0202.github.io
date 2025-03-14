@@ -10,11 +10,11 @@ categories: jekyll update
 <p>가운데 호박그림을 10000번 클릭하면 Flag를 얻을수 있는데요.</p>
 <img src="/assets/images/p2.PNG" style="max-width: 100%; height: auto;"> 
 <p>개발자 도구를 열어보면 스크립트 부분을 확인합니다.</p>
-<img src="/assets/images/p3.PNG" style="max-width: 100%; height: auto;"> 
+<img src="/assets/images/p3-1.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 counter 값을 10000으로 지정한 뒤, 호박을 클릭하면 될거라 생각했는데 실패였습니다. 이상한 문자가 출력되버렸죠.</p>
 <img src="/assets/images/p4.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 다시 해당 스크립트 부분을 유심히보다가 위와 같은 구문을 발견했습니다. pumpkin 배열에 counter가 100일 때마다 함수가 동작되는데요.</p>
-<img src="/assets/images/p5.PNG" style="max-width: 100%; height: auto;"> 
+<img src="/assets/images/p5-1.PNG" style="max-width: 100%; height: auto;"> 
 <p>저는 파이썬으로 함수를 가져와서 작동시켜보았습니다.</p>
 <p>1. 클릭을 1만번 해야되니까, for문을 10000으로 설정합니다.</p>
 <p>2. 가져온 함수를 for문에 입력해줍니다.</p>
