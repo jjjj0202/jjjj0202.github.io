@@ -1,0 +1,22 @@
+안녕하세요. 이번에 해볼 문제는 SQL Injection Bypass WAF입니다.
+
+해당 페이지를 보시면 쿼리를 이용하여 공격해야되는 것이 보이는데요.
+
+uid 파라미터에 admin을 넣고 전송해보면, 웹 방화벽에서 막았다는 문구가 뜹니다.
+
+해당 소스를 보며은 check_WAF함수를 이용해 keywords변수에 저장되어있는 리스트들을 필터링 하는것을 볼수 있는데요. 하지만 대소문자를 구분하지 않는다는 취약점이 있습니다.
+
+select와 union은 첫 글자를 대문자로 변경하고 공백은 %09로 우회가 가능합니다. 하지만 "Internal Server Error"가 뜨며 쿼리문이 이상하다는 것을 알 수있습니다.
+
+union 구문은 앞의 출력 컬럼의 갯수를 맞춰야되는데, 임의이 값 3개를 넣어보니 쿼리문이 완성되는 것을 알수 있습니다. 그리고 출력되는 컬럼은 2번째 컬럼인 것을 확인했습니다.
+
+admin도 마찬가지로 첫 글자를 대문자로 작성하며, 두번째 컬럼에 upw를 출력하여 플래그를 얻습니다.
+
+
+%27Union%09Select%09null,upw,null%09From%09user%09where%09uid=%27Admin%27%23
+
+
+' union select null,upw,null from user where uid=admin
+
+
+%27Union%09Select%091,2,3%23

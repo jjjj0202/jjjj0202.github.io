@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "[Dreamhack] SQL Injection Bypass WAF"
+date:   2025-04-01 08:42:22 +0900
+featured: /assets/images/블로그5.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 SQL Injection Bypass WAF입니다.</p>
+<img src="/assets/images/5/1.png" style="max-width: 100%; height: auto;"> 
+<p>해당 페이지를 보시면 쿼리를 이용하여 공격해야되는 것이 보이는데요.</p>
+<img src="/assets/images/5/2-1.png" style="max-width: 100%; height: auto;"> 
+<p>uid 파라미터에 admin을 넣고 전송해보면, 웹 방화벽에서 막았다는 문구가 뜹니다.</p>
+<img src="/assets/images/5/2-2.png" style="max-width: 100%; height: auto;"> 
+<p>해당 소스를 보며은 check_WAF함수를 이용해 keywords변수에 저장되어있는 리스트들을 필터링 하는것을 볼수 있는데요. 하지만 대소문자를 구분하지 않는다는 취약점이 있습니다.</p>
+<img src="/assets/images/5/3.png" style="max-width: 100%; height: auto;">
+<p>select와 union은 첫 글자를 대문자로 변경하고 공백은 %09로 우회가 가능합니다. 하지만 "Internal Server Error"가 뜨며 쿼리문이 이상하다는 것을 알 수있습니다.</p>
+<img src="/assets/images/5/4.png" style="max-width: 100%; height: auto;">
+<p>union 구문은 앞의 출력 컬럼의 갯수를 맞춰야되는데, 임의이 값 3개를 넣어보니 쿼리문이 완성되는 것을 알수 있습니다. 그리고 출력되는 컬럼은 2번째 컬럼인 것을 확인했습니다.</p>
+<img src="/assets/images/5/5.png" style="max-width: 100%; height: auto;">
+<p>admin도 마찬가지로 첫 글자를 대문자로 작성하며, 두번째 컬럼에 upw를 출력하여 플래그를 얻습니다.</p>
