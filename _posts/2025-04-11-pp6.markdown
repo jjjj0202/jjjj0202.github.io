@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "[Dreamhack] sql injection bypass WAF Advanced"
+date:   2025-04-01 08:42:22 +0900
+featured: /assets/images/블로그6.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 sql injection bypass WAF Advanced입니다.</p>
+<img src="/assets/images/6/1.png" style="max-width: 100%; height: auto;"> 
+<p>해당 페이지를 보시면 쿼리를 이용하여 공격해야되는 것이 보이는데요. 문제 명을 보니 [sql injection bypass WAF]와 비슷한 문제로 보입니다.</p>
+<img src="/assets/images/6/2.png" style="max-width: 100%; height: auto;"> 
+<p>[sql injection bypass WAF]때와 같이 'admin'의 첫 글자를 대문자로 변경하여 우회 시도했지만, 방화벽에서 막았다는 문구가 출력됩니다.
+</p>
+<img src="/assets/images/6/3.png" style="max-width: 100%; height: auto;"> 
+<p>소스를 확인해보면 입력 파라미터를 lower()문자로 변환 시켜 필터링을 진행하여, 더이상 대문자를 이용한 우회 방법을 시도할 수 없는 것을 알수 있습니다. 다른 방법을 찾아야되는데요.</p>
+<img src="/assets/images/6/4.png" style="max-width: 100%; height: auto;">
+<p>그건 바로 concat 함수를 사용하여 우회하는 방법입니다. concat함수는 괄호 안의 문자를 합치는 기능을 하는데, 위와 같이 "a"와 "dmin"을 괄호 안에 넣어 쿼리로 전달되면은 "admin"으로 문자가 합쳐져서 실행됩니다. 하지만 명령어는 위와같은 방법으로 우회가 불가능하여 select와 union은 실행할 수 없습니다. 때문에 Blind sql injection을 사용해야합니다.</p>
+<img src="/assets/images/6/5.png" style="max-width: 100%; height: auto;">
+<p>우선 문자열 길이을 알아야되기 때문에 char_length로 질의해줍니다.</p>
+<img src="/assets/images/6/6.png" style="max-width: 100%; height: auto;">
+<p>문자열 길이를 알게되면, substr로 한글자씩 출력하여 Ascii문자로 변환 시켜 0부터 127까지 반복된 숫자와 동일한 숫자를 찾아, chr함수를 이용해 문자로 다시 변환시켜 pw에 더해줍니다.</p>
+<img src="/assets/images/6/7.png" style="max-width: 100%; height: auto;">
+<p>CMD창에서 코드를 실행해보면 플래그를 얻은 것을 알수있습니다.</p>
+
