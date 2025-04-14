@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "[Dreamhack] NoSQL-CouchDB"
+date:   2025-04-01 08:42:22 +0900
+featured: /assets/images/블로그7.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 NoSQL-CouchDB입니다.</p>
+<img src="/assets/images/7/1.png" style="max-width: 100%; height: auto;"> 
+<p>해당 페이지를 보시면 로그인 페이지가 보이는데요. Couch DB를 사용하기 때문에 일반 SQL 인젝션 공격은 사용하지 못합니다.</p>
+<img src="/assets/images/7/2.png" style="max-width: 100%; height: auto;"> 
+<p>nano 패키지는 별도의 검증 기능이 없기 때문에, 어플리케이션 부분에서 별도로 검증을해야됩니다. 하지만 소스를 보면은 req로 받은 인자를 별도의 인증 없이, 그대로 사용하고있습니다.</p>
+<img src="/assets/images/7/3.png" style="max-width: 100%; height: auto;"> 
+<p>_all_docs 라는 특수 구성 요소를 삽입합니다.  
+※_all_docs : 지정된 데이터베이스의 모든 도큐먼트를 출력.</p>
+<img src="/assets/images/7/4.png" style="max-width: 100%; height: auto;">
+<p>하지만 화면과 같이 fail이 출력되었는데요. _all_docs는 모든 도큐먼트를 출력하여 error가 뜨지 않지만, upw가 같지 않아 fail이 출력이 되는데요. uid 키를 통해 _all_docs를 조회하여, upw키는 조회가 되지 않아 undefined이 출력되는데요.</p>
+<img src="/assets/images/7/5.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/6.png" style="max-width: 100%; height: auto;">
+<p>위의 그림처럼 upw 파라미터를 제거한 뒤 보내면 참이되어 flag를 출력합니다.</p>
+
