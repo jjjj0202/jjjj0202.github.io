@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Dreamhack] NoSQL-CouchDB"
+title:  "[Dreamhack] phpMyRedis"
 date:   2025-04-01 08:42:22 +0900
 featured: /assets/images/블로그8.png
 categories: jekyll update
