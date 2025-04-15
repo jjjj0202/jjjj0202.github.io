@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "[Dreamhack] NoSQL-CouchDB"
+date:   2025-04-01 08:42:22 +0900
+featured: /assets/images/블로그8.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 phpMyRedis입니다.</p>
+<img src="/assets/images/7/1.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/2.png" style="max-width: 100%; height: auto;">  
+<p>해당 페이지를 보시면 각각 index.php와 config.php 페이지를 확인 할 수 있습니다.</p>
+<img src="/assets/images/7/3.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/4.png" style="max-width: 100%; height: auto;">
+<p>소스를 보면 index.php는 eval() 함수를 사용하여 입력한 값을 저장하고 하단에 출력해주며, config.php는 키의 값을 조회 하거나 수정할 수 있는 페이지입니다. Redis는 루아 인터프리터가 내장되어 있어 eval()함수를 통해 스크립트를 실행할 수 있으며, SAVE 취약점을 활용할 수 있는데요.</p>
+<p>Redis는 메모리에 데이터를 저장하기 때문에 휘발성 특징이 있어, 데이터가 손실 될 수있는데요. 그것을 방지하기 위해 RDB 백업 방식을 사용합니다. 일정 시간마다 메모리 덤프를 파일시스템에 저장하게됩니다.</p>
+<img src="/assets/images/7/5.png" style="max-width: 100%; height: auto;">
+<p>우선 덤프 파일이 저장되는 위치를 dir키로 조회합니다. 위치가 웹 디렉토리기 때문에 변조할 필요가 없습니다.</p>
+<img src="/assets/images/7/6.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/8.png" style="max-width: 100%; height: auto;">
+<p>dbfilename 키로 덤프 파일 이름을 조회합니다. 해당 파일을 웹 쉘로 변조합니다.</p>
+<img src="/assets/images/7/7.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/9.png" style="max-width: 100%; height: auto;">
+<p>save키로 저장 주기를 조회합니다. 설정 값을 보면 1시간에 1번, 5분에 100번, 1분에 10000번이 바껴야지 덤프에 저장이됩니다. 메모리에 있는 데이터를 빠르게 저장하기 위해 저장주기를 10초에 1번으로 수정합니다.</p>
+<img src="/assets/images/7/10.png" style="max-width: 100%; height: auto;">
+<p>마지막으로 index.php에서 redis.call함수를 사용해 키와 값을 저장합니다. 키는 임의값으로 지정한 뒤, 값에는 웹쉘을 삽입합니다.</p>
+<img src="/assets/images/7/11.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/7/12.png" style="max-width: 100%; height: auto;">
+<p>flag파일 권한을 보니 실행 권한 밖에 없어서, url에 '?cmd=/flag' 파라미터를 추가하여 flag파일을 실행해 flag값을 얻습니다.</p>
