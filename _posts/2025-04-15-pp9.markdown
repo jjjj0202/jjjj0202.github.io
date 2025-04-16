@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "[Dreamhack] Command Injection Advanced"
+date:   2025-04-01 08:42:22 +0900
+featured: /assets/images/블로그9.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 Command Injection Advanced입니다.</p>
+<img src="/assets/images/9/1.png" style="max-width: 100%; height: auto;">
+<p>해당 페이지를 보시면 url을 입력해서 해킹하는 페이지인 것같은데요.</p>
+<img src="/assets/images/9/2.png" style="max-width: 100%; height: auto;">
+<p>소스를 보면 curl를 사용하여 페이지를 통해 다른 웹 페이지를 요청할 수 있는데요. escapeshellcmd를 사용하여 쉘 메타 문자 삽입을 방지하여 다른 커맨드를 삽입할 수가 없습니다. 하지만 '-' 문자를 이스케이프 처리하지 않아, curl에 옵션을 삽입할 수 있습니다.</p>
+<img src="/assets/images/9/3.png" style="max-width: 100%; height: auto;">
+<p>우선 필터링에 맞게 입력값을 'http'로 시작해서 '-h'를 삽입해봅니다.</p>
+<img src="/assets/images/9/4.png" style="max-width: 100%; height: auto;">
+<p>그러면은 위와 같이 help 옵션을 출력해주는 것을 볼 수 있는데요.</p>
+<img src="/assets/images/9/5.png" style="max-width: 100%; height: auto;">
+<p>드림핵에서 지원해주는 <a href="https://gist.githubusercontent.com/joswr1ght/22f40787de19d80d110b37fb79ac3985/raw/50008b4501ccb7f804a61bc2e1a3d1df1cb403c4/easy-simple-php-webshell.php">Github Raw file</a>링크를 사용해 웹쉘 코드를 삽입합니다.</p>
+<img src="/assets/images/9/6.png" style="max-width: 100%; height: auto;">
+<p>그러면 정상적으로 웹쉘 코드가 반환이 되는데요. 하지만 파일을 저장하지 않기 때문에 실행하지 못합니다.</p>
+<img src="/assets/images/9/7.png" style="max-width: 100%; height: auto;">
+<p>웹쉘을 저장하기 위해 '-o' 옵션을 사용하여 웹 디렉토리에 반환된 코드를 저장합니다. 이때 curl은 'cashe'디렉토리에서 실행하기 때문에 '/var/www/html/cashe/'에 웹쉘을 저장합니다.</p>
+<img src="/assets/images/9/8.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/9/9.png" style="max-width: 100%; height: auto;">
+<p>커맨드로 flag의 파일 형태를 본후, 실행 파일임을 확인하고 실행하여 flag값을 확인합니다.</p>
