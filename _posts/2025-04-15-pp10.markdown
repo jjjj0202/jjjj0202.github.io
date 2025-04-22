@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "[Dreamhack] File Vulnerability Advanced for linux"
+date:   2025-04-22 08:42:22 +0900
+featured: /assets/images/블로그10.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 File Vulnerability Advanced for linux입니다.</p>
+<img src="/assets/images/10/1.png" style="max-width: 100%; height: auto;">
+<p>처음 페이지를 보시면 'API Index'라는 문자열을 출력하는 것을 보아, API 관련 취약점인 듯합니다.</p>
+<img src="/assets/images/10/2.png" style="max-width: 100%; height: auto;">
+<p>소스를 보면 '/file'과 '/admin' 페이지가 있으며, admin페이지에서 cmd를 통해 flag값을 확인 할 수 있습니다. 하지만 명령어를 사용하기 위해서 '@key_required' 데코레이터를 인증해야 합니다.</p>
+<img src="/assets/images/10/3.png" style="max-width: 100%; height: auto;">
+<p>'key_required'함수를 보면 API_KEY를 확인하는 것 같은데요. 'API_KEY'변수를 보면 운영체제에 등록된 환경변수 값을 가져옵니다.</p>
+<img src="/assets/images/10/4.png" style="max-width: 100%; height: auto;">
+<p>그리고 메소드 GET을 사용하기 때문에 access.log에 접속 기록이 남습니다. nginx config를 확인하면 '/var/log/nginx_access.log'에 기록되는 것을 확인 할 수 있습니다.</p>
+<img src="/assets/images/10/5-1.png" style="max-width: 100%; height: auto;">
+<p>file페이지의 'path' 파라미터를 통해 상위 폴더로 올라가 환경변수가 저장되어 있는 파일로 접속하며, 키 값을 확인합니다.</p>
+<img src="/assets/images/10/5-2.png" style="max-width: 100%; height: auto;">
+<p>access.log를 통해서도 키 값을 넣고, 어떤 식으로 요청을 하는지 조회합니다.</p>
+<img src="/assets/images/10/5-3.png" style="max-width: 100%; height: auto;">
+<p>또한 키 값을 이용한 커맨드가 있을 겨우가 있어서, './bash_history'도 확인합니다.</p>
+<img src="/assets/images/10/6.png" style="max-width: 100%; height: auto;">
+<p>마지막으로 모든 정보를 이용하여, admin페이지에 접속하여 파라미터에 키값과 명령어를 삽입하여 flag값을 확인합니다.</p>
