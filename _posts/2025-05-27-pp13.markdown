@@ -82,29 +82,29 @@ local: config.xml remote: config.xml
 1752 bytes received in 00:00 (19.16 KiB/s)
 ```
 jenkins 2.401.2 버전의 루트 암호 저장 경로 확인.
-![alt text](image.png)
+![alt text](/assets/images/vmdak/image.png)
 
 9334포트 접근하면 /admin/login.php 경로에 로그인 페이지가 존재.
-![alt text](image-1.png)
+![alt text](/assets/images/vmdak/image-1.png)
 
 usernam에 '를 입력하면 에러 메시지가 아니라 빈 페이지가 출력되었음.
 아래 명령어로 sql injection 시도 시 admin으로 로그인됨.
 ```
 admin' or '1'='1
 ```
-![alt text](image-2.png)
+![alt text](/assets/images/vmdak/image-2.png)
 
 php 가 업로드가 불가하여 png로 확장자를 변경한 뒤 업로드.
-![alt text](image-3.png)
+![alt text](/assets/images/vmdak/image-3.png)
 
 burpsuite를 이용해 확장자를 다시 php로 변조.
-![alt text](image-4.png)
+![alt text](/assets/images/vmdak/image-4.png)
 
 업로드된 이미지에 우클릭하여 새 탭 열기 클릭.
-![alt text](image-5.png)
+![alt text](/assets/images/vmdak/image-5.png)
 
 페이지가 열리면 공격자 pc에서 netcat에 리버스 쉘이 화인됨.
-![alt text](image-6.png)
+![alt text](/assets/images/vmdak/image-6.png)
 
 
 완전한 쉘로 업그레이드
