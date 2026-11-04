@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "[Dreamhack] XSS Filtering Bypass"
+date:   2025-05-27 08:42:22 +0900
+featured: /assets/images/블로그11.png
+categories: jekyll update
+---
 ## 초기 침투
 nmap을 통해 포트 스캔을 수행함.
 ```
