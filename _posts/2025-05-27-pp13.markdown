@@ -7,7 +7,7 @@ categories: jekyll update
 ---
 ## 초기 침투
 nmap을 통해 포트 스캔을 수행함.
-```
+```bash
 └─$ nmap -p$ports -sC -sV -Pn 192.168.121.103
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-10-24 07:57 EDT
 Nmap scan report for 192.168.121.103
