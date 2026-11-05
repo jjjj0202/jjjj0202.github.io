@@ -34,21 +34,6 @@ theme: minima
 plugins:
   - jekyll-feed
 
-.highlight pre,
-pre.highlight,
-.highlighter-rouge pre {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 6px;
-  overflow-x: auto;
-  margin-top: 10px;
-}
-
-.highlight code,
-pre code {
-  font-family: Consolas, Monaco, monospace;
-  color: #333;
-}
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
