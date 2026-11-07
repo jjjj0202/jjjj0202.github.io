@@ -51,7 +51,7 @@
 	  color: #333;
 	}
 
-	article img {
+	.box p img {
 	    display: block;
 	    width: 100%;
 	    max-width: 900px;
