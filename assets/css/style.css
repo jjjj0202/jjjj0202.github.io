@@ -51,6 +51,16 @@
 	  color: #333;
 	}
 
+	article img {
+	    display: block;
+	    width: 100%;
+	    max-width: 900px;
+	    aspect-ratio: 16 / 9;
+	    object-fit: contain;
+	    background-color: #f4f4f4;
+	    margin: 20px auto;
+	}
+
 	a {
 		-moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 		-webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
