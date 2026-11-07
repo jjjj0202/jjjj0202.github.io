@@ -51,14 +51,16 @@
 	  color: #333;
 	}
 
+	/* Blog Content Images */
 	.box p img {
 	    display: block;
 	    width: 100%;
 	    max-width: 900px;
-	    aspect-ratio: 16 / 9;
+	    height: clamp(220px, 56.25vw, 506px);
 	    object-fit: contain;
 	    background-color: #f4f4f4;
 	    margin: 20px auto;
+	    border-radius: 6px;
 	}
 
 	a {
