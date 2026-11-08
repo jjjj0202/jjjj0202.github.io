@@ -1,0 +1,34 @@
+---
+title: CVE
+layout: default
+---
+
+<section class="wrapper style1">
+  <div class="container">
+    <div id="content">
+      <section>
+        <header class="major">
+          <h2>CVE</h2>
+        </header>
+        {% assign entries = site.post5 | sort: 'date' | reverse %}
+        {% if entries.size > 0 %}
+          {% for post in entries %}
+            <div class="row">
+              <section class="12u">
+                <div class="box post">
+                  {% if post.featured %}<a href="{{ site.baseurl }}{{ post.url }}" class="image left"><img src="{{ site.baseurl }}{{ post.featured }}" alt=""></a>{% endif %}
+                  <div class="inner">
+                    <h3>{{ post.title }}</h3>
+                    <footer><a href="{{ site.baseurl }}{{ post.url }}" class="button">Continue Reading</a></footer>
+                  </div>
+                </div>
+              </section>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>아직 등록된 CVE 글이 없습니다.</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</section>

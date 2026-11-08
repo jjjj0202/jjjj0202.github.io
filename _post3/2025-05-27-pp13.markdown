@@ -1,4 +1,5 @@
 ---
+permalink: /jekyll/update/2025/05/27/pp13.html
 layout: post
 title:  "[PG] vmdack"
 date:   2025-05-27 08:42:22 +0900

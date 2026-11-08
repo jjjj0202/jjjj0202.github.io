@@ -34,6 +34,24 @@ theme: minima
 plugins:
   - jekyll-feed
 
+# Separate writeup collections for the security topic pages.
+collections:
+  post2:
+    output: true
+    permalink: /:collection/:name/
+  post3:
+    output: true
+    permalink: /:collection/:name/
+  post4:
+    output: true
+    permalink: /:collection/:name/
+  post5:
+    output: true
+    permalink: /:collection/:name/
+  post6:
+    output: true
+    permalink: /:collection/:name/
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
