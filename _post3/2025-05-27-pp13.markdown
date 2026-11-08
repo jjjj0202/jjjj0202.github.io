@@ -1,14 +1,13 @@
 ---
 permalink: /jekyll/update/2025/05/27/pp13.html
 layout: post
-title:  "[PG] vmdack"
+title:  "[PG][Linux] vmdak"
 date:   2025-05-27 08:42:22 +0900
-featured: /assets/images/블로그11.png
-categories: jekyll update
----
-## 초기 침투
-nmap을 통해 포트 스캔을 수행함.2
-```bash
+featured: /assets/images/oscp-pg/linux/vmdak/image.png
+categories: PG Linux
+---## 초기 침투
+nmap을 통해 포트 스캔을 수행함.
+```
 └─$ nmap -p$ports -sC -sV -Pn 192.168.121.103
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-10-24 07:57 EDT
 Nmap scan report for 192.168.121.103
@@ -19,7 +18,7 @@ PORT     STATE SERVICE  VERSION
 | ftp-syst: 
 |   STAT: 
 | FTP server status:
-|      Connected to 192.168.45.223
+|      Connected to ATTACKER_IP
 |      Logged in as ftp
 |      TYPE: ASCII
 |      No session bandwidth limit
@@ -83,29 +82,29 @@ local: config.xml remote: config.xml
 1752 bytes received in 00:00 (19.16 KiB/s)
 ```
 jenkins 2.401.2 버전의 루트 암호 저장 경로 확인.
-![alt text](/assets/images/vmdak/image.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image.png)
 
 9334포트 접근하면 /admin/login.php 경로에 로그인 페이지가 존재.
-![alt text](/assets/images/vmdak/image-1.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-1.png)
 
 usernam에 '를 입력하면 에러 메시지가 아니라 빈 페이지가 출력되었음.
 아래 명령어로 sql injection 시도 시 admin으로 로그인됨.
 ```
 admin' or '1'='1
 ```
-![alt text](/assets/images/vmdak/image-2.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-2.png)
 
 php 가 업로드가 불가하여 png로 확장자를 변경한 뒤 업로드.
-![alt text](/assets/images/vmdak/image-3.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-3.png)
 
 burpsuite를 이용해 확장자를 다시 php로 변조.
-![alt text](/assets/images/vmdak/image-4.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-4.png)
 
 업로드된 이미지에 우클릭하여 새 탭 열기 클릭.
-![alt text](/assets/images/vmdak/image-5.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-5.png)
 
 페이지가 열리면 공격자 pc에서 netcat에 리버스 쉘이 화인됨.
-![alt text](/assets/images/vmdak/image-6.png)
+![alt text](/assets/images/oscp-pg/linux/vmdak/image-6.png)
 
 
 완전한 쉘로 업그레이드
