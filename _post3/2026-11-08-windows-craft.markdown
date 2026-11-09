@@ -4,7 +4,8 @@ title:  "[PG][Windows] craft"
 date:   2026-11-08 12:15:00 +09:00
 featured: /assets/images/oscp-pg/windows/craft/image.png
 categories: PG Windows
----## 정보 수집
+---
+## 정보 수집
 namp을 통해 포트 스캔 시 80포트 오픈되어있었음.
 ```
 nmap 192.168.220.65 -Pn -n --min-rate 3000 --open -oN scan

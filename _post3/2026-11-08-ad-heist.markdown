@@ -4,7 +4,8 @@ title:  "[PG][AD] heist"
 date:   2026-11-08 12:00:00 +09:00
 featured: /assets/images/oscp-pg/ad/heist/image.png
 categories: PG AD
----포트 스캔을 수행했다
+---
+포트 스캔을 수행했다
 ```
 └─$ nmap 192.168.148.165 -Pn -n --min-rate 3000 --open -oN scan
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-07-28 05:26 EDT

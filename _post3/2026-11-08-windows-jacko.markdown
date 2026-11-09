@@ -4,7 +4,8 @@ title:  "[PG][Windows] jacko"
 date:   2026-11-08 12:19:00 +09:00
 featured: /assets/images/oscp-pg/windows/jacko/image.png
 categories: PG Windows
----Nmap을 통해 포트 스캔을 수행함.
+---
+Nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap 192.168.161.66 -Pn -n --min-rate 3000 --open -oN scan 
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-07 07:42 EDT

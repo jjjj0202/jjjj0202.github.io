@@ -4,7 +4,8 @@ title:  "[PG][Linux] twiggy"
 date:   2026-11-08 12:12:00 +09:00
 featured: /assets/images/oscp-pg/linux/twiggy/image.png
 categories: PG Linux
----## 정보 수집
+---
+## 정보 수집
 nmap포트 스캔을 수행.
 ```
 ??$ sudo nmap -sC -sV -p- 192.168.176.62 --min-rate 10000 -vvv

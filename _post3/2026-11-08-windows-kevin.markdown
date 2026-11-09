@@ -4,7 +4,8 @@ title:  "[PG][Windows] kevin"
 date:   2026-11-08 12:20:00 +09:00
 featured: /assets/images/oscp-pg/windows/kevin/image.png
 categories: PG Windows
----Nmap을 통해 포트 스캔을 수행함.
+---
+Nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap --open 192.168.216.45
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-01 06:26 EDT

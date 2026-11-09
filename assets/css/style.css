@@ -52,18 +52,21 @@
 	}
 
 	/* Responsive writeup content */
-	.post-content img {
+	.post-content img,
+	.post-content p img,
+	.post-content a img {
 		display: block;
 		width: 100%;
 		max-width: 900px;
-		height: auto;
-		max-height: none;
-		object-fit: contain;
+		height: auto !important;
+		max-height: none !important;
+		object-fit: contain !important;
 		margin: 1.25em auto;
 		border-radius: 6px;
 	}
 
-	.post-content pre {
+	.post-content pre,
+	.post-content .highlight pre {
 		box-sizing: border-box;
 		max-width: 100%;
 		margin: 1em 0;
@@ -71,7 +74,7 @@
 		overflow-x: auto;
 		-webkit-overflow-scrolling: touch;
 		border-radius: 6px;
-		background: #eeeeee;
+		background: #eeeeee !important;
 		color: #333333;
 		white-space: pre;
 	}
@@ -86,16 +89,19 @@
 	.post-content :not(pre) > code {
 		padding: 0.1em 0.35em;
 		border-radius: 4px;
-		background: #eeeeee;
+		background: #eeeeee !important;
 		color: #333333;
 	}
 
 	@media screen and (max-width: 736px) {
-		.post-content img {
+		.post-content img,
+	.post-content p img,
+	.post-content a img {
 			max-width: 100%;
 		}
 
-		.post-content pre {
+		.post-content pre,
+	.post-content .highlight pre {
 			padding: 0.75em;
 			font-size: 0.8em;
 		}

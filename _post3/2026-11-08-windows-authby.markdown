@@ -4,7 +4,8 @@ title:  "[PG][Windows] authby"
 date:   2026-11-08 12:14:00 +09:00
 featured: /assets/images/oscp-pg/windows/authby/image.png
 categories: PG Windows
----## 정보 수집
+---
+## 정보 수집
 nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap 192.168.170.46 -Pn -n --min-rate 3000 --open -oN scan

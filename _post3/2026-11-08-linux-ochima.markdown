@@ -4,7 +4,8 @@ title:  "[PG][Linux] ochima"
 date:   2026-11-08 12:08:00 +09:00
 featured: /assets/images/oscp-pg/linux/ochima/image.png
 categories: PG Linux
----## 정보 수집
+---
+## 정보 수집
 nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap -p$ports -sC -sV -Pn 192.168.245.32

@@ -4,7 +4,8 @@ title:  "[PG][Windows] squid"
 date:   2026-11-08 12:24:00 +09:00
 featured: /assets/images/oscp-pg/windows/squid/image.png
 categories: PG Windows
----## 정보 수집
+---
+## 정보 수집
 포트 스캔을 수행하였음.
 ```
 └─$ ports=$(nmap -p- --min-rate=1000 -T4 -Pn 192.168.245.189 | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)

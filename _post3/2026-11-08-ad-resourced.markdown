@@ -4,7 +4,8 @@ title:  "[PG][AD] resourced"
 date:   2026-11-08 12:03:00 +09:00
 featured: /assets/images/oscp-pg/ad/resourced/image.png
 categories: PG AD
----## 정보 수집
+---
+## 정보 수집
 포트 스캔을 수행으로 resourced.local 도메인이 사용 중인 것을 발견.
 ```
 └─$ ports=$(nmap -p- --min-rate=1000 -T4 -Pn 192.168.236.175 | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)

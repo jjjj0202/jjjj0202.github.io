@@ -3,7 +3,8 @@ layout: post
 title:  "[PG][AD] hutch"
 date:   2026-11-08 12:01:00 +09:00
 categories: PG AD
----## Hutch
+---
+## Hutch
 ```
 ldapsearch -H ldap://$IP -x -s base namingcontexts
 ldapsearch -H ldap://$IP -x -b"DC=hutch,DC=offsec" > ldap_dump.txt

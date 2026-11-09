@@ -4,7 +4,8 @@ title:  "[PG][Linux] payday"
 date:   2026-11-08 12:09:00 +09:00
 featured: /assets/images/oscp-pg/linux/payday/image.png
 categories: PG Linux
----## 정보 수집
+---
+## 정보 수집
 nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap 192.168.180.39 -Pn -n --min-rate 3000 --open -oN scan

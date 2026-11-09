@@ -4,7 +4,8 @@ title:  "[PG][Windows] shenzi"
 date:   2026-11-08 12:22:00 +09:00
 featured: /assets/images/oscp-pg/windows/shenzi/image.png
 categories: PG Windows
----## 정보수집
+---
+## 정보수집
 Nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ ports=$(nmap -p- --min-rate=1000 -T4 -Pn 192.168.208.55 | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)

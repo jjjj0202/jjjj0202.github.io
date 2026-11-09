@@ -5,7 +5,8 @@ title:  "[PG][Linux] vmdak"
 date:   2025-05-27 08:42:22 +0900
 featured: /assets/images/oscp-pg/linux/vmdak/image.png
 categories: PG Linux
----## 초기 침투
+---
+## 초기 침투
 nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ nmap -p$ports -sC -sV -Pn 192.168.121.103

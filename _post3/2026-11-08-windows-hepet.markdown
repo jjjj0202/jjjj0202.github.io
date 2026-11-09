@@ -4,7 +4,8 @@ title:  "[PG][Windows] hepet"
 date:   2026-11-08 12:17:00 +09:00
 featured: /assets/images/oscp-pg/windows/hepet/image.png
 categories: PG Windows
----## 정보수집
+---
+## 정보수집
 nmap으로 포트 스캔을 수행.
 ```
 └─$ nmap -p$ports -sC -sV -Pn 192.168.192.140

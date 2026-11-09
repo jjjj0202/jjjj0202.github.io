@@ -4,7 +4,8 @@ title:  "[PG][Windows] monster"
 date:   2026-11-08 12:21:00 +09:00
 featured: /assets/images/oscp-pg/windows/monster/image.png
 categories: PG Windows
----## 정보 수집
+---
+## 정보 수집
 nmap을 통해 포트 스캔을 수행함.
 ```
 └─$ ports=$(nmap -p- --min-rate=1000 -T4 -Pn 192.168.218.180 | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
