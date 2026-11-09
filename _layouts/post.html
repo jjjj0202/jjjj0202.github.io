@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="8u -2u">
 							<section class="box post-content">
-								{% unless page.title contains '[PG]' %}
+								{% unless page.title contains '[PG]' or page.title contains '[HTB]' %}
 								<a href="#" class="image left"><img src="{{ site.baseurl }}{{ page.featured }}" alt="" /></a>
 								{% endunless %}
 								{{ page.content }}
