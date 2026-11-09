@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="8u -2u">
 							<section class="box post-content">
-								{% unless page.title contains '[PG]' or page.title contains '[HTB]' %}
+								{% unless page.title contains '[PG]' or page.title contains '[HTB]' or page.title contains '[BHPT]' %}
 								<a href="#" class="image left"><img src="{{ site.baseurl }}{{ page.featured }}" alt="" /></a>
 								{% endunless %}
 								{{ page.content }}
@@ -24,3 +24,4 @@
 		</div>
 	</section>
 {% include footer.html %}
+
