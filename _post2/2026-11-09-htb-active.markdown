@@ -432,7 +432,7 @@ smb: \> mget *
 
 ```
 
-이 `Groups.xml` 파일에서 `SVC_TGS`라는 사용자 이름과 암호화된 비밀번호(`cpassword`)를 얻을 수 있었어.
+이 `Groups.xml` 파일에서 `SVC_TGS`라는 사용자 이름과 암호화된 비밀번호(`cpassword`)를 얻을 수 있었다.
 
 ---
 
@@ -440,9 +440,9 @@ smb: \> mget *
 
 ### 그룹 정책 기본 설정 (Group Policy Preferences)
 
-그룹 정책 기본 설정(GPP)은 Windows Server 2008에 도입되었으며, 관리자가 네트워크 전체의 사용자와 그룹을 수정할 수 있게 해줘. 예를 들어, 회사 기본 이미지의 로컬 관리자 비밀번호가 너무 약해서 관리자가 나중에 더 강력한 것으로 설정하려고 할 때 사용할 수 있다.
+그룹 정책 기본 설정(GPP)은 Windows Server 2008에 도입되었으며, 관리자가 네트워크 전체의 사용자와 그룹을 수정할 수 있게 해 준다. 예를 들어, 회사 기본 이미지의 로컬 관리자 비밀번호가 너무 약해서 관리자가 나중에 더 강력한 것으로 설정하려고 할 때 사용할 수 있다.
 
-이때 정의된 비밀번호는 AES-256으로 암호화되어 `Groups.xml`에 저장된다. 하지만 2012년에 Microsoft가 MSDN에 AES 키를 공개해 버렸기 때문에, GPP를 사용해 설정된 비밀번호는 이제 아주 쉽게 크랙할 수 있는 가장 손쉬운 타겟(low-hanging fruit)으로 여겨져.
+이때 정의된 비밀번호는 AES-256으로 암호화되어 `Groups.xml`에 저장된다. 하지만 2012년에 Microsoft가 MSDN에 AES 키를 공개해 버렸기 때문에, GPP를 사용해 설정된 비밀번호는 이제 아주 쉽게 크랙할 수 있는 가장 손쉬운 타겟(low-hanging fruit)으로 여겨진다.
 
 암호화된 비밀번호를 추출해서 `gpp-decrypt` 도구를 사용해 복호화한다.
 
@@ -452,7 +452,7 @@ GPPstillStandingStrong2k18
 
 ```
 
-도메인 계정 `SVC_TGS`의 비밀번호는 `GPPstillStandingStrong2k18`이라는 걸 알아냈어.
+도메인 계정 `SVC_TGS`의 비밀번호는 `GPPstillStandingStrong2k18`이라는 걸 알아냈다.
 
 ### 인증된 열거 (Authenticated Enumeration)
 

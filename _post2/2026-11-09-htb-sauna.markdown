@@ -75,7 +75,7 @@ Nmap 출력을 보면 이 서버가 `egotistical-bank.local` 도메인의 도메
 
 LDAP
 
-`windapsearch`로 LDAP를 열거해 보면 익명 바인딩(anonymous binds)이 허용됨을 확인할 수 있다. 하지만 도메인 객체를 반환하지는 않아.
+`windapsearch`로 LDAP를 열거해 보면 익명 바인딩(anonymous binds)이 허용됨을 확인할 수 있다. 하지만 도메인 객체를 반환하지는 않다.
 
 ```bash
 └─$ ./windapsearch.py -d EGOTISTICAL-BANK.LOCAL --dc-ip TARGET_IP -U
@@ -93,7 +93,7 @@ LDAP
 
 ```
 
-Impacket의 `GetADUsers.py`를 사용해 볼 수도 있지만, 이것 역시 유용한 정보를 반환하지는 않아.
+Impacket의 `GetADUsers.py`를 사용해 볼 수도 있지만, 이것 역시 유용한 정보를 반환하지는 않다.
 
 SMB
 
@@ -116,9 +116,9 @@ Unable to connect with SMB1 -- no workgroup available
 
 웹 (Web)
 
-브라우저에서 웹사이트로 이동하면 은행 웹사이트가 나타나. Wappalyzer 애드온은 취약한 기술을 식별하지 않아.
+브라우저에서 웹사이트로 이동하면 은행 웹사이트가 나타나. Wappalyzer 애드온은 취약한 기술을 식별하지 않는다.
 
-`ffuf`를 사용해 웹사이트를 스캔하면 몇 가지 일반적인 파일과 디렉토리를 찾을 수 있지만, 흥미로운 점은 눈에 띄지 않아.
+`ffuf`를 사용해 웹사이트를 스캔하면 몇 가지 일반적인 파일과 디렉토리를 찾을 수 있지만, 흥미로운 점은 눈에 띄지 않다.
 
 ```bash
 └─$ ffuf -w /usr/share/wordlists/dirb/common.txt -u http://TARGET_IP/FUZZ
@@ -383,7 +383,7 @@ Queries 탭에서 'Find Principals with DCSync Rights'를 클릭한다. `SVC_LOA
 
 DCSync
 
-Impacket의 `secretsdump.py`를 사용해 이 공격을 수행할 수 있다. 이 스크립트는 복제 권한을 사용하여 모든 도메인 사용자의 NTLM 해시를 보여줘. 아래 명령을 실행하여 기본 도메인 관리자의 비밀번호 해시를 덤프한다.
+Impacket의 `secretsdump.py`를 사용해 이 공격을 수행할 수 있다. 이 스크립트는 복제 권한을 사용하여 모든 도메인 사용자의 NTLM 해시를 보여준다. 아래 명령을 실행하여 기본 도메인 관리자의 비밀번호 해시를 덤프한다.
 
 ```bash
 └─$ impacket-secretsdump egotistical-bank/svc_loanmgr@TARGET_IP -just-dc-user Administrator
@@ -426,4 +426,4 @@ nt authority\system
 
 ---
 
-어때, 혹시 이해 안 가는 부분이나 더 궁금한 내용이 있으면 편하게 물어봐 줘! 내가 도와줄 거 더 있을까?
+추가 설명이 필요한 부분은 별도로 정리한다.

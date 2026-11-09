@@ -198,7 +198,7 @@ CN=ExchangeLegacyInterop,OU=Microsoft Exchange Security Groups,DC=htb,DC=local
 
 ```
 
-쿼리 결과 `svc-alfresco`라는 서비스 계정을 포함하여 312~313개의 고유한 객체를 찾았어. 온라인에서 `alfresco`를 검색하면 설정 문서로 연결된다. 문서에 따르면 이 서비스는 Kerberos 사전 인증(pre-authentication)을 비활성화해야 한다.
+쿼리 결과 `svc-alfresco`라는 서비스 계정을 포함하여 312~313개의 고유한 객체를 찾았다. 온라인에서 `alfresco`를 검색하면 설정 문서로 연결된다. 문서에 따르면 이 서비스는 Kerberos 사전 인증(pre-authentication)을 비활성화해야 한다.
 
 이 말은 우리가 이 사용자에 대한 암호화된 TGT를 요청할 수 있다는 뜻이다. TGT에는 사용자의 NTLM 해시로 암호화된 데이터가 포함되어 있으므로, 이를 오프라인 무차별 대입 공격(brute force attack)에 사용하여 `svc-alfresco`의 비밀번호를 알아낼 수 있다.
 
@@ -230,7 +230,7 @@ Session completed.
 
 ```
 
-이 계정의 비밀번호는 `s3rvice`로 밝혀졌어. 5985 포트도 열려 있으므로, Evil-WinRM을 사용하여 WinRM을 통해 원격으로 로그인할 수 있는지 확인해 볼 수 있다.
+이 계정의 비밀번호는 `s3rvice`로 밝혀졌다. 5985 포트도 열려 있으므로, Evil-WinRM을 사용하여 WinRM을 통해 원격으로 로그인할 수 있는지 확인해 볼 수 있다.
 
 ```powershell
 └─$ evil-winrm -i TARGET_IP -u svc-alfresco -p s3rvice
@@ -247,7 +247,7 @@ htb\svc-alfresco
 
 ```
 
-인증에 성공하여 서버에서 명령을 실행할 수 있게 되었어. `C:\users\svc-alfresco\Desktop\user.txt`에서 사용자 플래그(user flag)를 가져올 수 있다.
+인증에 성공하여 서버에서 명령을 실행할 수 있게 되었다. `C:\users\svc-alfresco\Desktop\user.txt`에서 사용자 플래그(user flag)를 가져올 수 있다.
 
 ---
 
@@ -282,7 +282,7 @@ Info: Download successful!
 
 ![alt text](/assets/images/htb/ad/easy/forest/image-1.png)
 
-경로 중 하나를 보면 Exchange Windows Permissions 그룹이 도메인에 대한 `writeDacl` 권한을 가지고 있는 걸 알 수 있다. `writeDACL` 권한은 사용자가 객체에 ACL을 추가할 수 있게 해줘. 우리는 사용자를 이 그룹에 추가하고 DCSync 권한을 부여할 수 있다.
+경로 중 하나를 보면 Exchange Windows Permissions 그룹이 도메인에 대한 `writeDacl` 권한을 가지고 있는 걸 알 수 있다. `writeDACL` 권한은 사용자가 객체에 ACL을 추가할 수 있게 해 준다. 우리는 사용자를 이 그룹에 추가하고 DCSync 권한을 부여할 수 있다.
 
 WinRM 쉘로 돌아가서 `Exchange Windows Permissions` 및 `Remote Management Users` 그룹에 새 사용자를 추가한다.
 

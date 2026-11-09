@@ -77,7 +77,7 @@ pip install python-ldap
 ./windapsearch.py -U --full --dc-ip TARGET_IP
 ```
 
-위 명령은 도메인의 모든 사용자를 나열해 줘.
+위 명령은 도메인의 모든 사용자를 나열한다.
 
 ```text
 <SNIP>
@@ -215,7 +215,7 @@ smb: \IT\Temp\s.smith\> ls
 ```
 https://github.com/frizb/PasswordDecrypts
 
-이 문서에서는 Metasploit을 사용하여 TightVNC 비밀번호를 어떻게 해독할 수 있는지 보여줘. 다음 명령을 사용하여 비밀번호를 해독한다.
+이 문서에서는 Metasploit을 사용하여 TightVNC 비밀번호를 어떻게 해독할 수 있는지 보여준다. 다음 명령을 사용하여 비밀번호를 해독한다.
 
 ```ruby
 msfconsole
@@ -232,7 +232,7 @@ key="\x17\x52\x6b\x06\x23\x4e\x58\x07"
 
 `key` 변수는 프로그램에서 추출된 알려진 하드코딩 DES 키다. `Rex::Proto::RFB::Cipher.decrypt` 함수는 제공된 키를 사용하여 비밀번호를 해독하는 데 사용되지 않는다 않는다.
 
-`s.smith`의 비밀번호가 `sT333ve2`로 밝혀졌어! 이 사용자가 `Remote Management Users` 그룹에 속해 있는지 확인한다. 이 권한이 있다면 Evil-WinRM을 사용하여 접속할 수 있다.
+`s.smith`의 비밀번호가 `sT333ve2`로 밝혀졌다! 이 사용자가 `Remote Management Users` 그룹에 속해 있는지 확인한다. 이 권한이 있다면 Evil-WinRM을 사용하여 접속할 수 있다.
 
 ```bash
 ./windapsearch.py -U --full --dc-ip TARGET_IP
@@ -263,7 +263,7 @@ Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:\Users\s.smith\Documents>
 ```
 
-접속이 성공적으로 이루어지고 PowerShell Remoting 세션이 연결되었어. 사용자 플래그(user flag)는 `C:\Users\s.smith\Desktop`에 있다.
+접속이 성공적으로 이루어지고 PowerShell Remoting 세션이 연결됐다. 사용자 플래그(user flag)는 `C:\Users\s.smith\Desktop`에 있다.
 
 ---
 
@@ -395,7 +395,7 @@ cd dnSpy-netcore-win64
 wine dnSpy.exe
 ```
 
-File을 클릭한 다음 Open을 누르고 `CascAudit.exe`를 찾아 디컴파일한다. `CascAudit (1.0.0.0)`을 클릭하고 그 아래 `CascAudit`에서 `MainModule`을 선택하여 `main` 함수를 찾아.
+File을 클릭한 다음 Open을 누르고 `CascAudit.exe`를 찾아 디컴파일한다. `CascAudit (1.0.0.0)`을 클릭하고 그 아래 `CascAudit`에서 `MainModule`을 선택하여 `main` 함수를 찾는다.
 
 ![alt text](/assets/images/htb/ad/medium/cascade/image-1.png)
 
@@ -607,4 +607,4 @@ Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:\Users\Administrator\Documents>
 ```
 
-드디어 로그인이 성공적으로 완료되었어! 이제 루트 플래그를 읽을 수 있다.
+드디어 로그인이 성공적으로 완료됐다! 이제 루트 플래그를 읽을 수 있다.

@@ -11,7 +11,7 @@ categories: [AD, Medium]
 **분류:** 공식 (Official)
 
 ### 개요 (Synopsis)
-Escape는 게스트 권한으로 인증된 사용자가 민감한 PDF 파일을 다운로드할 수 있는 SMB 공유 폴더에서 시작하는 중간 난이도의 Windows Active Directory 머신이다. 이 PDF 파일 내부에는 머신에서 실행 중인 MSSQL 서비스에 접근할 수 있는 임시 자격 증명이 들어 있다. 공격자는 MSSQL 서비스가 공격자의 머신으로 인증을 시도하도록 강제하여 해시를 탈취할 수 있다. 이 서비스는 일반 사용자 계정 권한으로 실행되고 있으며 탈취한 해시는 크랙이 가능한 것으로 밝혀지지.
+Escape는 게스트 권한으로 인증된 사용자가 민감한 PDF 파일을 다운로드할 수 있는 SMB 공유 폴더에서 시작하는 중간 난이도의 Windows Active Directory 머신이다. 이 PDF 파일 내부에는 머신에서 실행 중인 MSSQL 서비스에 접근할 수 있는 임시 자격 증명이 들어 있다. 공격자는 MSSQL 서비스가 공격자의 머신으로 인증을 시도하도록 강제하여 해시를 탈취할 수 있다. 이 서비스는 일반 사용자 계정 권한으로 실행되고 있으며 탈취한 해시는 크랙이 가능한 것으로 밝혀졌다.
 
 유효한 자격 증명을 얻은 공격자는 WinRM을 사용하여 머신에서 명령 실행 권한을 얻을 수 있다. 머신 내부를 열거하던 중, 로그 파일을 통해 `ryan.cooper` 사용자의 자격 증명을 발견하게 된다. 추가 열거를 통해 인증 기관(Certificate Authority)이 존재하며 하나의 인증서 템플릿이 ESC1 공격에 취약하다는 것을 알 수 있다. 즉, 이 템플릿을 사용할 권한이 있는 사용자는 도메인 관리자(Domain Administrators)를 포함해 도메인 내의 다른 어떤 사용자를 위한 인증서도 요청할 수 있다는 뜻이다. 따라서 ESC1 취약점을 악용하여 Administrator 계정의 유효한 인증서를 얻은 다음, 이를 사용하여 관리자 사용자의 해시를 획득할 수 있다.
 
@@ -153,7 +153,7 @@ SQL>
 
 ## 초기 침투 (Foothold)
 
-확인한 자격 증명을 사용하여 MSSQL 서버에 연결할 수 있다. 주변을 둘러봐도 딱히 흥미로운 것은 찾을 수 없다. 하지만 우리가 시도해 볼 수 있는 것은 SQL 서비스가 우리 머신으로 인증을 시도하도록 강제하고 해시를 가로채는 것이다. SQL 서비스가 사용자 계정 권한으로 실행 중이라면 탈취한 해시를 크랙할 수 있을 가능성이 높아.
+확인한 자격 증명을 사용하여 MSSQL 서버에 연결할 수 있다. 주변을 둘러봐도 딱히 흥미로운 것은 찾을 수 없다. 하지만 우리가 시도해 볼 수 있는 것은 SQL 서비스가 우리 머신으로 인증을 시도하도록 강제하고 해시를 가로채는 것이다. SQL 서비스가 사용자 계정 권한으로 실행 중이라면 탈취한 해시를 크랙할 수 있을 가능성이 높다.
 
 우선, Responder를 설정한다.
 ```bash
@@ -181,7 +181,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hash
 REGGIE1234ronnie (sql_svc)
 ```
 
-해시가 성공적으로 크랙되었고 `sql_svc` 사용자의 평문 비밀번호인 `REGGIE1234ronnie`를 얻었어. 이제 WinRM을 통해 `sql_svc` 사용자로 인증을 시도한다. `evil-winrm`을 사용할 것이다.
+해시가 성공적으로 크랙되었고 `sql_svc` 사용자의 평문 비밀번호인 `REGGIE1234ronnie`를 얻었다. 이제 WinRM을 통해 `sql_svc` 사용자로 인증을 시도한다. `evil-winrm`을 사용할 것이다.
 
 ```powershell
 evil-winrm -i sequel.htb -u sql_svc -p REGGIE1234ronnie
@@ -244,7 +244,7 @@ sequel\ryan.cooper
 ## 권한 상승 (Privilege Escalation)
 
 이 시점에서 우리는 권한을 상승시킬 방법을 찾아야 한다. 초기 Nmap 스캔 출력 결과를 다시 살펴보면 인증서(certificate)와 관련된 출력이 많은 것을 볼 수 있다. 이는 인증 기관(Certificate Authority)이 실행 중이라는 강력한 징후다. `Certify`를 사용하여 Active Directory Certificate Services의 가능한 잘못된 구성(misconfiguration)을 열거할 수 있다.
-*(참고: 저장소에 배포된 실행 파일이 없으므로 Visual Studio를 사용해 직접 빌드해야 할 수 있어.)*
+*(참고: 저장소에 배포된 실행 파일이 없으므로 Visual Studio를 사용해 직접 빌드해야 할 수 있다.)*
 
 https://github.com/ademkanat/Certify
 
@@ -388,7 +388,7 @@ SID
 S-1-5-21-4078382237-1492182817-2568127209-1106
 ```
 
-사용자의 SID를 얻었어. 도메인 SID는 사용자의 SID에서 마지막 부분만 뺀 것이다. 즉:
+사용자의 SID를 얻었다. 도메인 SID는 사용자의 SID에서 마지막 부분만 뺀 것이다. 즉:
 `S-1-5-21-4078382237-1492182817-2568127209`
 
 https://codebeautify.org/ntlm-hash-generator

