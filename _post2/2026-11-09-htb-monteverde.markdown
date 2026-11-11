@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Monteverde"
 date:   2026-11-09 20:59:06 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/monteverde.jpg
 ---
 **날짜:** 2020년 3월 23일 / 문서 번호 D20.100.64 **작성자:** TRX & egre55 **머신 제작자:** egre55 **난이도:** 보통 (Medium) **분류:** 공식 (Official)
 

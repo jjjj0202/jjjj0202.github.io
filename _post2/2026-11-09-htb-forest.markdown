@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Forest"
 date:   2026-11-09 20:59:05 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/forest.jpg
 ---
 **작성자:** k1ph4ru **머신 제작자:** egre55 & mrb3n **난이도:** 쉬움 (Easy) **분류:** 공식 (Official)
 

@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Active"
 date:   2026-11-09 20:59:02 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/active.jpg
 ---
 ## 개요
 

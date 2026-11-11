@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Cicada"
 date:   2026-11-09 20:59:03 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/cicada.jpg
 ---
 **작성일:** 2025년 1월 17일 / 문서 번호 D25.100.319
 **작성자:** Pho3

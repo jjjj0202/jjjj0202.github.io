@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Fluffy"
 date:   2026-11-09 20:59:04 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/fluffy.jpg
 ---
 **작성일:** 2025년 9월 16일
 **작성자:** kavigihan

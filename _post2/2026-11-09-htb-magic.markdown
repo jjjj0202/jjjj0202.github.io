@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][Linux][Medium] Magic"
 date:   2026-11-09 20:59:13 +09:00
 categories: [Linux, Medium]
+featured: /assets/images/htb/magic.jpg
 ---
 **날짜:** 2020년 6월 15일 / 문서 번호 D20.100.76
 **작성자:** bertolis

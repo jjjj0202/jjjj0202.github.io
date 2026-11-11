@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Hard] Flight"
 date:   2026-11-09 20:59:10 +09:00
 categories: [AD, Hard]
+featured: /assets/images/htb/flight.jpg
 ---
 **날짜:** 2022년 11월 16일 / 문서 번호 D22.100.214
 **작성자:** amra

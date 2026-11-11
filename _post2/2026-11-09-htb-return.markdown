@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Return"
 date:   2026-11-09 20:59:07 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/return.jpg
 ---
 **날짜:** 2021년 5월 27일 / 문서 번호 D21.101.183
 **작성자:** MrR3boot

@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Medium] Cascade"
 date:   2026-11-09 20:59:11 +09:00
 categories: [AD, Medium]
+featured: /assets/images/htb/cascade.jpg
 ---
 **날짜:** 2020년 7월 20일 / 문서 번호 D20.100.81
 **작성자:** TRX

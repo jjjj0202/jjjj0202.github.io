@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Timelapse"
 date:   2026-11-09 20:59:09 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/timelapse.jpg
 ---
 **날짜:** 2022년 8월 19일 / 문서 번호 D22.100.194
 **작성자:** woodenk

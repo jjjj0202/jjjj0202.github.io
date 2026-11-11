@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Easy] Sauna"
 date:   2026-11-09 20:59:08 +09:00
 categories: [AD, Easy]
+featured: /assets/images/htb/sauna.jpg
 ---
 **날짜:** 2020년 4월 29일 / 문서 번호 D20.100.65 **작성자:** bertolis **머신 제작자:** egotisticalSW **난이도:** 쉬움 (Easy) **분류:** 공식 (Official)
 

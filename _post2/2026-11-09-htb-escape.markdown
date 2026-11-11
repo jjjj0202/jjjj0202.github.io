@@ -3,6 +3,7 @@ layout: post
 title: "[HTB][AD][Medium] Escape"
 date:   2026-11-09 20:59:12 +09:00
 categories: [AD, Medium]
+featured: /assets/images/htb/escape.jpg
 ---
 **날짜:** 2023년 3월 20일 / 문서 번호 D22.100.230
 **작성자:** amra
