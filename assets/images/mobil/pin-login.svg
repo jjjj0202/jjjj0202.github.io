@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">간편 로그인 PIN 코드 우회</title><desc id="desc">스마트폰 PIN 키패드와 잠금 아이콘을 그린 보안 썸네일</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#211936"/><stop offset="1" stop-color="#34234b"/></linearGradient><linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff9fbd"/><stop offset="1" stop-color="#a988ff"/></linearGradient></defs>
+  <rect width="1200" height="630" rx="34" fill="url(#bg)"/><circle cx="1000" cy="90" r="260" fill="#a56bdf" opacity=".12"/><circle cx="110" cy="570" r="240" fill="#fa7eaf" opacity=".08"/>
+  <path d="M70 95h410" stroke="#ff9fbd" stroke-width="6" stroke-linecap="round"/><text x="72" y="145" fill="#f2aeca" font-size="22" font-family="Arial,sans-serif" letter-spacing="5">MOBILE SECURITY  /  PIN AUTHENTICATION</text>
+  <text x="72" y="282" fill="#fff" font-size="55" font-weight="700" font-family="sans-serif">간편 로그인</text><text x="72" y="350" fill="#fff" font-size="55" font-weight="700" font-family="sans-serif">PIN 코드 우회</text><text x="76" y="408" fill="#cec0df" font-size="26" font-family="sans-serif">인증 상태 검증과 로컬 저장 방식 분석</text>
+  <rect x="76" y="455" width="205" height="52" rx="26" fill="#ff9fbd" opacity=".15" stroke="#ff9fbd" stroke-opacity=".6"/><text x="108" y="489" fill="#ffd0df" font-size="20" font-family="Arial,sans-serif" letter-spacing="2">SECURITY NOTE</text>
+  <rect x="803" y="112" width="250" height="405" rx="42" fill="#17152c" stroke="#78628f" stroke-width="8"/><rect x="830" y="151" width="196" height="320" rx="18" fill="#29213d"/><circle cx="928" cy="185" r="16" fill="#c4b2d9"/><circle cx="883" cy="235" r="8" fill="#ff9fbd"/><circle cx="928" cy="235" r="8" fill="#ff9fbd"/><circle cx="973" cy="235" r="8" fill="#ff9fbd"/>
+  <g fill="#423452"><circle cx="878" cy="289" r="19"/><circle cx="928" cy="289" r="19"/><circle cx="978" cy="289" r="19"/><circle cx="878" cy="340" r="19"/><circle cx="928" cy="340" r="19"/><circle cx="978" cy="340" r="19"/></g>
+  <path d="M862 422v-18a41 41 0 0 1 82 0v18" fill="none" stroke="url(#accent)" stroke-width="12" stroke-linecap="round"/><rect x="852" y="416" width="102" height="70" rx="18" fill="url(#accent)"/><circle cx="903" cy="447" r="7" fill="#2a1e3d"/><path d="M903 453v13" stroke="#2a1e3d" stroke-width="7" stroke-linecap="round"/>
+  <path d="M763 540h365" stroke="#ff9fbd" stroke-width="3" opacity=".55"/><circle cx="1101" cy="155" r="10" fill="#ff9fbd"/>
+</svg>

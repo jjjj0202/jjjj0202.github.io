@@ -10,13 +10,36 @@ layout: default
         <header class="major">
           <h2>Mobil</h2>
         </header>
+<style>
+  .mobil-thumbnail {
+    height: 190px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #151b31;
+  }
+  .mobil-thumbnail img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: contain;
+  }
+  @media (max-width: 700px) {
+    .box.post .mobil-thumbnail {
+      float: none;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      margin: 0 0 1.25em;
+    }
+    .box.post .inner { margin-left: 0; }
+  }
+</style>
         {% assign entries = site.post5 | sort: 'date' | reverse %}
         {% if entries.size > 0 %}
           {% for post in entries %}
             <div class="row">
               <section class="12u">
                 <div class="box post">
-                  {% if post.featured %}<a href="{{ site.baseurl }}{{ post.url }}" class="image left"><img src="{{ site.baseurl }}{{ post.featured }}" alt=""></a>{% endif %}
+                  {% if post.featured %}<a href="{{ post.url }}" class="image left mobil-thumbnail"><img src="{{ post.featured }}" alt="{{ post.title | escape }}" loading="lazy"></a>{% endif %}
                   <div class="inner">
                     <h3>{{ post.title }}</h3>
                     <footer><a href="{{ site.baseurl }}{{ post.url }}" class="button">Continue Reading</a></footer>

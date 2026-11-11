@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">티켓 캡처 방지 우회</title><desc id="desc">모바일 티켓과 화면 캡처 아이콘을 그린 보안 썸네일</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102537"/><stop offset="1" stop-color="#123c51"/></linearGradient><linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55e3d3"/><stop offset="1" stop-color="#54a8ff"/></linearGradient></defs>
+  <rect width="1200" height="630" rx="34" fill="url(#bg)"/><circle cx="1000" cy="90" r="270" fill="#32b8c9" opacity=".12"/><circle cx="110" cy="570" r="230" fill="#4c93f7" opacity=".09"/>
+  <path d="M70 95h410" stroke="#55e3d3" stroke-width="6" stroke-linecap="round"/><text x="72" y="145" fill="#8bded8" font-size="22" font-family="Arial,sans-serif" letter-spacing="5">MOBILE SECURITY  /  SCREEN CAPTURE</text>
+  <text x="72" y="300" fill="#fff" font-size="58" font-weight="700" font-family="sans-serif">티켓 캡처 방지 우회</text><text x="76" y="365" fill="#b7d1df" font-size="27" font-family="sans-serif">화면 보호 정책과 티켓 표시 흐름 분석</text>
+  <rect x="76" y="430" width="205" height="52" rx="26" fill="#55e3d3" opacity=".15" stroke="#55e3d3" stroke-opacity=".6"/><text x="108" y="464" fill="#9bf3e9" font-size="20" font-family="Arial,sans-serif" letter-spacing="2">SECURITY NOTE</text>
+  <rect x="784" y="132" width="320" height="350" rx="28" fill="#142b40" stroke="#5e8da5" stroke-width="7"/><path d="M784 205h320" stroke="#5e8da5" stroke-width="5"/><circle cx="817" cy="168" r="9" fill="#ff7a8a"/><circle cx="847" cy="168" r="9" fill="#ffc56f"/><circle cx="877" cy="168" r="9" fill="#5be1c9"/>
+  <path d="M826 277h236v132H826z" rx="16" fill="url(#accent)" opacity=".22" stroke="#64d9e9" stroke-width="4"/><path d="M850 310h118M850 338h168M850 366h90" stroke="#a8e8ef" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+  <path d="M1027 280l60 23v44c0 43-25 69-60 86-35-17-60-43-60-86v-44z" fill="#55e3d3"/><path d="M1006 348l15 15 30-34" fill="none" stroke="#12394c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M755 525h390" stroke="#55e3d3" stroke-width="3" opacity=".55"/><circle cx="1142" cy="120" r="10" fill="#55e3d3"/>
+</svg>
