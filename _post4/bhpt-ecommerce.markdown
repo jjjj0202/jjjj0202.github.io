@@ -2,6 +2,7 @@
 title: '[BHPT] eCommerce'
 layout: post
 date: 2026-11-09 12:00:00 +0900
+featured: /assets/images/redraccoon-logo.png
 ---
 
 # 8.eCommerce 모의해킹

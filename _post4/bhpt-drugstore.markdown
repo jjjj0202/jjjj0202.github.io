@@ -2,6 +2,7 @@
 title: '[BHPT] Drugstore'
 layout: post
 date: 2026-11-09 12:00:00 +0900
+featured: /assets/images/redraccoon-logo.png
 ---
 
 # 3.drugstore 모의해킹
